@@ -1,0 +1,42 @@
+# ===== Java / Maven =====
+target/
+*.class
+*.jar
+*.war
+*.log
+.mvn/wrapper/maven-wrapper.jar
+!/.mvn/wrapper/maven-wrapper.properties
+
+# ===== Node / Frontend =====
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Env =====
+.env
+.env.local
+*.local
+
+# ===== Docker =====
+mysql_data/
+
+# ===== Project Specific =====
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/sql/init.sql
+**/__pycache__/

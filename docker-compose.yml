@@ -1,0 +1,61 @@
+# ============================================================
+# Docker Compose — 芒得很职 全栈部署
+# ============================================================
+version: "3.8"
+
+services:
+  # ---- MySQL 数据库 ----
+  db:
+    image: mysql:8.0
+    container_name: mangdehenzhi-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: mangdehenzhi
+      MYSQL_USER: mangdehenzhi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---- Spring Boot 后端 ----
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mangdehenzhi-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      JWT_SECRET: ${JWT_SECRET:-mangdehenzhi-jwt-secret-key-2026-very-long-secret-for-security}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      MYSQL_HOST: db
+      MYSQL_USER: mangdehenzhi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+    ports:
+      - "8080:8080"
+
+  # ---- Nginx 前端 ----
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mangdehenzhi-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mysql_data:

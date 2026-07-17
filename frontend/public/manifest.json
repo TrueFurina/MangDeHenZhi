@@ -1,0 +1,21 @@
+{
+  "name": "芒得很职",
+  "short_name": "芒得很职",
+  "description": "AI + 元宇宙 + 区块链 职业技能培训认证平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0b1a",
+  "theme_color": "#409eff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "technology"],
+  "lang": "zh-CN",
+  "scope": "/"
+}

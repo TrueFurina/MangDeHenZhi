@@ -1,0 +1,70 @@
+# ============================================================
+# Docker Compose — 开发环境（带热重载）
+# ============================================================
+version: "3.8"
+
+services:
+  # MySQL 数据库（与生产共用）
+  db:
+    image: mysql:8.0
+    container_name: mangdehenzhi-db-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: mangdehenzhi
+      MYSQL_USER: mangdehenzhi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 后端 — 开发模式（挂载源码，热重载）
+  backend-dev:
+    image: maven:3.9-eclipse-temurin-17
+    container_name: mangdehenzhi-backend-dev
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - maven_repo:/root/.m2
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret-key-for-local-development}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      MYSQL_HOST: db
+      MYSQL_USER: mangdehenzhi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+    ports:
+      - "8080:8080"
+    command: >
+      sh -c "
+        mvn spring-boot:run -Dspring-boot.run.jvmArguments='-Dspring.devtools.restart.enabled=true'
+      "
+
+  # 前端 — 开发模式（Vite Dev Server + HMR）
+  frontend-dev:
+    image: node:20-alpine
+    container_name: mangdehenzhi-frontend-dev
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend-dev
+    ports:
+      - "5173:5173"
+    command: >
+      sh -c "
+        npm install && npm run dev -- --host 0.0.0.0
+      "
+
+volumes:
+  mysql_data_dev:
+  maven_repo:
