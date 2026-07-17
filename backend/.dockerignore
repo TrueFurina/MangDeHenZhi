@@ -1,0 +1,10 @@
+# 后端 .dockerignore
+target/
+.idea/
+*.iml
+.mvn/
+mvnw
+mvnw.cmd
+**/node_modules/
+**/__pycache__/
+**/.git/

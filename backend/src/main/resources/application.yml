@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: mangdehenzhi-backend
+
+  # 默认使用 H2 内存数据库（开发方便）
+  datasource:
+    url: jdbc:h2:mem:mangdehenzhi;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+server:
+  port: 8080
+
+# JWT 配置（生产环境请通过环境变量 JWT_SECRET 覆盖）
+jwt:
+  secret: mangdehenzhi-jwt-secret-key-2026-very-long-secret-for-security
+  expiration: 86400000  # 24小时

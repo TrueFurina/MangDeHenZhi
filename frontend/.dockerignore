@@ -1,0 +1,6 @@
+# 前端 .dockerignore
+node_modules/
+dist/
+.idea/
+*.iml
+**/.git/
