@@ -28,13 +28,13 @@ jobs:
           cache: maven
 
       - name: 编译后端
-        run: ./mvnw compile -q
+        run: mvn compile -q
 
       - name: 运行后端测试
-        run: ./mvnw test
+        run: mvn test
 
       - name: 打包后端
-        run: ./mvnw package -DskipTests -B
+        run: mvn package -DskipTests -B
 
       - name: 上传构建产物
         uses: actions/upload-artifact@v4
