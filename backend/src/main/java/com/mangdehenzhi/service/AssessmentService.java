@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -39,7 +40,12 @@ public class AssessmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Assessment", id));
     }
 
-    @Transactional
+    /**
+     * 提交测评
+     * 1) 校验并计算得分（事务外）
+     * 2) 调用 AI 分析（事务外，避免长耗时占用 DB 连接）
+     * 3) 落库结果 + 签发证书（事务内）
+     */
     public AssessmentResultDTO submitAssessment(Long userId, AssessmentSubmitRequest request) {
         Assessment assessment = assessmentRepository.findById(request.getAssessmentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Assessment", request.getAssessmentId()));
@@ -54,17 +60,27 @@ public class AssessmentService {
         // 计算总分
         int totalScore = request.getDimensionScores().values().stream()
                 .mapToInt(Integer::intValue).sum();
-
         boolean passed = totalScore >= assessment.getPassScore();
 
-        // AI分析
+        // AI 分析（事务外执行，不占用 DB 连接）
         String analysisJson = aiService.analyzeAssessmentResult(
                 assessment.getTitle(), request.getDimensionScores(), totalScore);
-
-        // AI推荐
         String recommendations = aiService.generateRecommendations(
                 assessment.getTitle(), request.getDimensionScores());
 
+        // 持久化 + 签发证书（事务内）
+        return saveResultAndIssueCertificate(
+                request.getAssessmentId(), userId, totalScore, passed,
+                request.getDimensionScores(), analysisJson, recommendations);
+    }
+
+    @Transactional
+    protected AssessmentResultDTO saveResultAndIssueCertificate(
+            Long assessmentId, Long userId, int totalScore, boolean passed,
+            Map<String, Integer> dimensionScores, String analysisJson, String recommendations) {
+
+        Assessment assessment = assessmentRepository.findById(assessmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Assessment", assessmentId));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
@@ -73,12 +89,11 @@ public class AssessmentService {
                 .user(user)
                 .score(totalScore)
                 .passed(passed)
-                .dimensionScores(request.getDimensionScores())
+                .dimensionScores(dimensionScores)
                 .aiAnalysis(analysisJson)
                 .recommendations(recommendations)
                 .completedAt(LocalDateTime.now())
                 .build();
-
         result = resultRepository.save(result);
 
         // 自动签发证书（如果通过）
@@ -102,9 +117,13 @@ public class AssessmentService {
     }
 
     @Transactional(readOnly = true)
-    public AssessmentResultDTO getResultById(Long resultId) {
+    public AssessmentResultDTO getResultById(Long resultId, Long userId) {
         AssessmentResult result = resultRepository.findById(resultId)
                 .orElseThrow(() -> new ResourceNotFoundException("AssessmentResult", resultId));
+        // 仅本人可查看自己的测评结果
+        if (!result.getUser().getId().equals(userId)) {
+            throw new BusinessException(403, "无权访问该测评结果");
+        }
         return AssessmentResultDTO.fromEntity(result);
     }
 }

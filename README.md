@@ -406,6 +406,53 @@ make clean
 
 ---
 
+## 🔒 演示安全须知（Security Baseline）
+
+> 面向"软件杯 Lite 版（约 20 天、需稳定可演示）"的安全底线。详细审计见 `deliverables/SECURITY_AUDIT_REPORT.md`（D 级，26 项）。
+> 最近一轮（SRE）已闭环以下高危/中危项：**F-001 提交式 JWT 密钥、F-002 默认弱口令、F-003 匿名建课、F-004 方法级鉴权/角色、F-005 IDOR 测评、F-006 IDOR 用户 PII、F-007 端口暴露、F-010 限流 XFF 绕过、F-012 Swagger 暴露、F-018 弱库口令、F-020 Vite 代理端口**（均经 QA 复核确认已修复）。
+> **以下仍 open，演示/上线前须知悉：**
+
+| 编号 | 风险 | 等级 | 演示应对 |
+|------|------|------|----------|
+| F-008 | 全链路无 TLS（仅 HTTP，JWT/凭据明文） | 🟠 | 仅本机/内网演示；公网必须 TLS 终止（443）+ HTTP→HTTPS 重定向 |
+| F-009 | `CORS_ALLOWED_ORIGINS` 默认 `*` | 🟡 | 将 `.env` 中设为具体域名，勿用 `*` |
+| F-011 | 全局 `frameOptions.disable()`（H2 控制台残留） | 🟡 | prod 已禁用 H2 控制台，实际风险低；后续收紧到 H2 路径 |
+| F-013 | "区块链存证/验证"为模拟（verify 恒返回 `true`） | 🟡 | **演示时明确标注"预留/模拟"，勿宣称为已上链**，否则评审验证即穿帮 |
+| F-014 | JWT 存 `localStorage`（XSS 可窃取） | 🟡 | 演示环境可信前端可接受；长期改 HttpOnly Cookie |
+| F-015 | 前端 axios 存在 SSRF CVE | 🟡 | `npm install axios@latest` 升级至 ≥1.8.0 |
+| F-017 | DeepSeek 出站无超时（API 慢→线程耗尽） | 🟡 | 演示前确认 `DEEPSEEK_API_KEY` 有效或依赖本地降级；勿在弱网下演示 AI 报告 |
+| F-019 | CI 动作未 SHA 锁定、无镜像扫描 | 🟢 | 非阻塞；后续加 Trivy + 动作 SHA 锁定 |
+| F-021/022/024/025/026 | 注册枚举 / 遗留重复代码 / 场景回显 / GET 写副作用 / HSTS-on-HTTP | 🟢 | 低危，后续清理 |
+
+### 密钥与口令：一律强随机、绝不入库
+
+生产/演示必须将以下变量设为**强随机值**（仓库不提交真实 `.env`）：`JWT_SECRET`、`MYSQL_ROOT_PASSWORD`、`MYSQL_PASSWORD`。
+当前 `application-prod.yml` 与 `docker-compose.yml` 已设为**缺失即启动失败（fail-fast）**，不会再有默认密钥/弱口令。
+
+生成方式（二选一）：
+
+```bash
+# Windows (PowerShell)
+powershell -ExecutionPolicy Bypass -File scripts/generate-secrets.ps1
+# Linux / macOS / CI
+bash scripts/generate-secrets.sh
+```
+
+脚本会基于 `.env.example` 生成 `.env` 并注入强随机密钥（已存在则只打印，不覆盖）。
+
+### 部署红线（务必遵守）
+
+- **绝不将 MySQL(3306) / 后端(8080) 映射到公网宿主机端口**。生产 `docker-compose.yml` 已默认**不映射**这两个端口（仅 `frontend:80` 对外）；后端经 Nginx 反代对内通信。
+- `docker-compose.dev.yml` 的 3306/8080/5173 端口**仅供本机调试**，切勿把 dev 机器暴露到公网。
+- 任何公网暴露都必须**先终止 TLS**（443）；当前仅 HTTP（F-008 仍 open）。
+- 将 `CORS_ALLOWED_ORIGINS` 设为前端具体域名，勿保留 `*`。
+
+### 冒烟验证
+
+`docker compose up -d --build` 后，后端 `/api/health` 与前端首页均有健康检查探针；CI 的 `docker` job 会在构建后自动启动容器并校验 `http://localhost:80/`（首页）与 `http://localhost:80/api/health`（经 Nginx 反代到后端）返回 200。
+
+---
+
 ## 📝 优化日志
 
 详见 [OPTIMIZATION_LOG.md](./OPTIMIZATION_LOG.md)。

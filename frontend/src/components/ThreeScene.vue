@@ -26,6 +26,8 @@ let labelRenderer: CSS2DRenderer
 let controls: OrbitControls
 let animationId: number
 let lights: THREE.Light[] = []
+let characterGroups: { group: THREE.Group; baseY: number; phase: number }[] = []
+let particles: THREE.Points | null = null
 
 const SCENE_CONFIGS: Record<string, { bgColor: number; groundColor: number; lightIntensity: number }> = {
   INTERVIEW_ROOM: { bgColor: 0x1a1b2e, groundColor: 0x2d2d4a, lightIntensity: 0.8 },
@@ -105,6 +107,9 @@ function initScene() {
 
   // === 场景特定元素 ===
   createSceneElements()
+
+  // === 环境粒子 ===
+  createParticles()
 
   // === 动画循环 ===
   animate()
@@ -239,6 +244,7 @@ function createAICharacter(name: string, x: number, z: number, color = 0x4488ff)
 
   group.position.set(x, 0, z)
   scene.add(group)
+  characterGroups.push({ group, baseY: 0, phase: Math.random() * Math.PI * 2 })
   return group
 }
 
@@ -319,8 +325,42 @@ function createTrainingRoom() {
   }
 }
 
+function createParticles() {
+  const count = 200
+  const positions = new Float32Array(count * 3)
+  for (let i = 0; i < count * 3; i++) {
+    positions[i] = (Math.random() - 0.5) * 30
+  }
+  const geometry = new THREE.BufferGeometry()
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+  const material = new THREE.PointsMaterial({
+    color: 0x667eea,
+    size: 0.05,
+    transparent: true,
+    opacity: 0.6,
+    blending: THREE.AdditiveBlending,
+  })
+  particles = new THREE.Points(geometry, material)
+  particles.position.y = 5
+  scene.add(particles)
+}
+
 function animate() {
   animationId = requestAnimationFrame(animate)
+
+  // AI角色浮动动画
+  const time = Date.now() * 0.001
+  characterGroups.forEach(({ group, phase }) => {
+    group.position.y = Math.sin(time * 0.8 + phase) * 0.08
+    // 微弱的呼吸旋转
+    group.rotation.y += 0.002
+  })
+
+  // 粒子缓慢旋转
+  if (particles) {
+    particles.rotation.y += 0.0005
+  }
+
   controls.update()
   renderer.render(scene, camera)
   labelRenderer.render(scene, camera)

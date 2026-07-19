@@ -7,7 +7,11 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "certifications")
+@Table(name = "certifications", indexes = {
+    @Index(name = "idx_cert_hash", columnList = "certHash", unique = true),
+    @Index(name = "idx_cert_user", columnList = "user_id"),
+    @Index(name = "idx_cert_status", columnList = "status")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

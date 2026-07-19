@@ -10,10 +10,10 @@ services:
     container_name: mangdehenzhi-db-dev
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # 须从 .env 提供强随机口令
       MYSQL_DATABASE: mangdehenzhi
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 须从 .env 提供强随机口令
     ports:
       - "3306:3306"
     volumes:
@@ -41,7 +41,7 @@ services:
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       MYSQL_HOST: db
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 须从 .env 提供强随机口令
     ports:
       - "8080:8080"
     command: >

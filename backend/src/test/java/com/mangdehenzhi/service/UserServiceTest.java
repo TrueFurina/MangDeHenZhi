@@ -6,6 +6,9 @@ import com.mangdehenzhi.dto.RegisterRequest;
 import com.mangdehenzhi.entity.User;
 import com.mangdehenzhi.enums.UserRole;
 import com.mangdehenzhi.exception.BusinessException;
+import com.mangdehenzhi.repository.AssessmentRepository;
+import com.mangdehenzhi.repository.AssessmentResultRepository;
+import com.mangdehenzhi.repository.CertificationRepository;
 import com.mangdehenzhi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +28,20 @@ class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CertificationRepository certificationRepository;
+
+    @Autowired
+    private AssessmentResultRepository assessmentResultRepository;
+
+    @Autowired
+    private AssessmentRepository assessmentRepository;
+
     @BeforeEach
     void setUp() {
+        certificationRepository.deleteAll();
+        assessmentResultRepository.deleteAll();
+        assessmentRepository.deleteAll();
         userRepository.deleteAll();
     }
 

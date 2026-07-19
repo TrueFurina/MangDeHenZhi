@@ -8,11 +8,15 @@ import com.mangdehenzhi.enums.AssessmentStatus;
 import com.mangdehenzhi.enums.CertificationStatus;
 import com.mangdehenzhi.enums.DifficultyLevel;
 import com.mangdehenzhi.enums.UserRole;
+import com.mangdehenzhi.repository.AssessmentRepository;
+import com.mangdehenzhi.repository.AssessmentResultRepository;
 import com.mangdehenzhi.repository.CertificationRepository;
+import com.mangdehenzhi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
@@ -31,38 +35,52 @@ class CertificationServiceTest {
     @Autowired
     private CertificationRepository certificationRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AssessmentRepository assessmentRepository;
+
+    @Autowired
+    private AssessmentResultRepository resultRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private User testUser;
     private AssessmentResult testResult;
 
     @BeforeEach
     void setUp() {
         certificationRepository.deleteAll();
+        resultRepository.deleteAll();
+        assessmentRepository.deleteAll();
+        userRepository.deleteAll();
 
-        testUser = User.builder()
-                .id(1L)
+        testUser = userRepository.save(User.builder()
                 .username("certuser")
+                .password(passwordEncoder.encode("test123"))
                 .email("cert@example.com")
                 .role(UserRole.STUDENT)
-                .build();
+                .build());
 
-        Assessment assessment = Assessment.builder()
-                .id(1L)
+        Assessment assessment = assessmentRepository.save(Assessment.builder()
                 .title("综合技能测评")
                 .difficulty(DifficultyLevel.ADAPTIVE)
+                .duration(60)
                 .totalScore(300)
                 .passScore(180)
                 .status(AssessmentStatus.COMPLETED)
-                .build();
+                .build());
 
-        testResult = AssessmentResult.builder()
-                .id(1L)
+        testResult = resultRepository.save(AssessmentResult.builder()
                 .assessment(assessment)
                 .user(testUser)
                 .score(240)
                 .passed(true)
                 .dimensionScores(Map.of("communication", 80, "collaboration", 70, "problem_solving", 90))
                 .completedAt(LocalDateTime.now())
-                .build();
+                .build());
     }
 
     @Test

@@ -7,7 +7,10 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "metaverse_sessions")
+@Table(name = "metaverse_sessions", indexes = {
+    @Index(name = "idx_session_user", columnList = "user_id"),
+    @Index(name = "idx_session_active", columnList = "active")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

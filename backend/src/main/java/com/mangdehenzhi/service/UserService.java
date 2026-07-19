@@ -1,6 +1,10 @@
 package com.mangdehenzhi.service;
 
-import com.mangdehenzhi.dto.*;
+import com.mangdehenzhi.dto.LoginRequest;
+import com.mangdehenzhi.dto.LoginResponse;
+import com.mangdehenzhi.dto.RegisterRequest;
+import com.mangdehenzhi.dto.UpdateProfileRequest;
+import com.mangdehenzhi.dto.UserDTO;
 import com.mangdehenzhi.entity.User;
 import com.mangdehenzhi.enums.UserRole;
 import com.mangdehenzhi.exception.BusinessException;
@@ -9,6 +13,8 @@ import com.mangdehenzhi.config.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +63,11 @@ public class UserService {
         return new LoginResponse(token, UserDTO.fromEntity(user));
     }
 
-    public UserDTO getUserById(Long id) {
+    public UserDTO getUserById(Long id, User currentUser) {
+        // F-006：仅本人或 ADMIN 可查询用户，防止枚举全站 PII
+        if (!currentUser.getId().equals(id) && currentUser.getRole() != UserRole.ADMIN) {
+            throw new BusinessException(403, "无权访问该用户");
+        }
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("用户不存在"));
         return UserDTO.fromEntity(user);
@@ -66,5 +76,42 @@ public class UserService {
     public User getCurrentUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException("用户不存在"));
+    }
+
+    public UserDTO updateProfile(Long userId, UpdateProfileRequest request) {
+        User user = getCurrentUser(userId);
+        if (request.getNickname() != null) user.setNickname(request.getNickname());
+        if (request.getPhone() != null) user.setPhone(request.getPhone());
+        if (request.getEmail() != null) user.setEmail(request.getEmail());
+        if (request.getAvatar() != null) user.setAvatar(request.getAvatar());
+        user = userRepository.save(user);
+        return UserDTO.fromEntity(user);
+    }
+
+    // ===== Admin 方法 =====
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getUserEntityById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("用户不存在"));
+    }
+
+    public User updateUserRole(Long id, UserRole role) {
+        User user = getUserEntityById(id);
+        user.setRole(role);
+        return userRepository.save(user);
+    }
+
+    public User toggleUserStatus(Long id) {
+        User user = getUserEntityById(id);
+        user.setEnabled(!user.getEnabled());
+        return userRepository.save(user);
+    }
+
+    public long getUserCount() {
+        return userRepository.count();
     }
 }

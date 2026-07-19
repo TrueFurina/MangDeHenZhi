@@ -1,11 +1,21 @@
 package com.mangdehenzhi.config;
 
-import com.mangdehenzhi.entity.*;
-import com.mangdehenzhi.enums.*;
-import com.mangdehenzhi.repository.*;
+import com.mangdehenzhi.entity.Assessment;
+import com.mangdehenzhi.entity.Course;
+import com.mangdehenzhi.entity.User;
+import com.mangdehenzhi.enums.AssessmentStatus;
+import com.mangdehenzhi.enums.CourseCategory;
+import com.mangdehenzhi.enums.DifficultyLevel;
+import com.mangdehenzhi.enums.UserRole;
+import com.mangdehenzhi.repository.AssessmentRepository;
+import com.mangdehenzhi.repository.AssessmentResultRepository;
+import com.mangdehenzhi.repository.CertificationRepository;
+import com.mangdehenzhi.repository.CourseRepository;
+import com.mangdehenzhi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +25,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
+@Profile("!prod")
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 

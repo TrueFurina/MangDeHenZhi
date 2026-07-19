@@ -73,21 +73,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/user'
 import { metaverseApi } from '@/api'
+import { useWebSocket } from '@/composables/useWebSocket'
 import AppHeader from '@/components/AppHeader.vue'
 import ThreeScene from '@/components/ThreeScene.vue'
 import type { MetaverseSession } from '@/types'
 
+const userStore = useUserStore()
 const sessions = ref<MetaverseSession[]>([])
 const activeScene = ref<MetaverseSceneType | null>(null)
+const currentRoomId = ref('')
 
 type MetaverseSceneType = 'INTERVIEW_ROOM' | 'CLASSROOM' | 'MEETING_ROOM' | 'TRAINING_ROOM'
 const sceneReady = ref(false)
 const orbitEnabled = ref(true)
 const entering = ref(false)
 const aiCount = ref(2)
+
+// WebSocket 实时通信
+const ws = useWebSocket(
+  currentRoomId,
+  String(userStore.currentUser?.id || ''),
+  userStore.currentUser?.nickname || userStore.currentUser?.username || '访客'
+)
+
+const onlineUsers = ref(0)
+const chatMessages = ref<{ user: string; msg: string; time: number }[]>([])
+const chatInput = ref('')
+
+// 监听 WebSocket 消息
+ws.on('room_info', (msg) => { onlineUsers.value = msg.userCount })
+ws.on('user_joined', (msg) => { ElMessage.info(`${msg.username} 加入了房间`) })
+ws.on('user_left', (msg) => { ElMessage.info(`${msg.username} 离开了房间`) })
+ws.on('chat', (msg) => {
+  chatMessages.value.push({ user: msg.username, msg: msg.message, time: msg.timestamp })
+})
+
+function sendChat() {
+  if (!chatInput.value.trim()) return
+  ws.send({ type: 'chat', message: chatInput.value.trim() })
+  chatInput.value = ''
+}
 
 const scenes = [
   { type: 'INTERVIEW_ROOM' as MetaverseSceneType, name: '虚拟面试', desc: '模拟真实面试场景，与AI面试官互动', icon: '🎯' },
@@ -122,8 +151,11 @@ async function enterScene(type: string) {
       sessionName: scenes.find(s => s.type === type)?.name || type,
       sceneType: type,
     })
+    currentRoomId.value = res.data.roomId
+    ws.connect()
     ElMessage.success(`已进入「${res.data.sessionName}」，房间ID: ${res.data.roomId}`)
     sessions.value.unshift(res.data)
+    selectScene(type as MetaverseSceneType)
   } catch (err: any) {
     ElMessage.error(err.response?.data?.message || '创建场景失败')
   } finally {

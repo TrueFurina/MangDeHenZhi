@@ -14,9 +14,58 @@
 body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== 移动端响应式 ===== */
+
+/* 平板 (768px-1024px) */
+@media (max-width: 1024px) {
+  .page-content { padding: 24px !important; }
+  .feature-grid,
+  .assessment-grid,
+  .course-grid,
+  .cert-grid,
+  .scene-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .profile-layout { grid-template-columns: 1fr !important; }
+}
+
+/* 手机 (<768px) */
+@media (max-width: 768px) {
+  .page-content { padding: 16px !important; }
+  .header,
+  .header-inner { flex-wrap: wrap; padding: 12px 16px !important; }
+  .nav { display: none !important; }
+  .hero { flex-direction: column; padding: 40px 16px !important; text-align: center; }
+  .hero-title { font-size: 32px !important; }
+  .hero-visual { display: none; }
+  .hero-actions { justify-content: center; }
+  .feature-grid,
+  .assessment-grid,
+  .course-grid,
+  .cert-grid,
+  .scene-grid { grid-template-columns: 1fr !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .profile-layout { grid-template-columns: 1fr !important; }
+  .auth-card { width: 90% !important; max-width: 400px; }
+  .info-grid { grid-template-columns: 1fr !important; }
+  .course-meta { grid-template-columns: 1fr !important; }
+  .result-header { flex-direction: column; text-align: center; }
+  .el-table { font-size: 12px; }
+  .admin-content { padding: 16px !important; }
+}
+
+/* 小屏手机 (<400px) */
+@media (max-width: 400px) {
+  .stats-grid { grid-template-columns: 1fr !important; }
+  .hero-title { font-size: 24px !important; }
+  .hero-subtitle { font-size: 14px !important; }
 }
 
 /* 卡片样式 */
+.glass-card {
 .glass-card {
   background: rgba(26, 27, 46, 0.8);
   backdrop-filter: blur(10px);

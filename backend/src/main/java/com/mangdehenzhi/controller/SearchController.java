@@ -2,7 +2,7 @@ package com.mangdehenzhi.controller;
 
 import com.mangdehenzhi.dto.ApiResponse;
 import com.mangdehenzhi.entity.Course;
-import com.mangdehenzhi.repository.CourseRepository;
+import com.mangdehenzhi.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,19 +20,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchController {
 
-    private final CourseRepository courseRepository;
+    private final CourseService courseService;
 
     @GetMapping("/courses")
     public ResponseEntity<ApiResponse<List<Course>>> searchCourses(
             @RequestParam String q,
             @RequestParam(defaultValue = "20") int limit) {
-        if (q == null || q.isBlank()) {
-            return ResponseEntity.ok(ApiResponse.success(List.of()));
-        }
-        List<Course> results = courseRepository.findByTitleContainingIgnoreCase(q.trim());
-        if (results.size() > limit) {
-            results = results.subList(0, limit);
-        }
-        return ResponseEntity.ok(ApiResponse.success(results));
+        return ResponseEntity.ok(ApiResponse.success(courseService.searchCourses(q, limit)));
     }
 }

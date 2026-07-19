@@ -10,6 +10,7 @@ import com.mangdehenzhi.enums.DifficultyLevel;
 import com.mangdehenzhi.exception.ResourceNotFoundException;
 import com.mangdehenzhi.repository.AssessmentRepository;
 import com.mangdehenzhi.repository.AssessmentResultRepository;
+import com.mangdehenzhi.repository.CertificationRepository;
 import com.mangdehenzhi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,9 @@ class AssessmentServiceTest {
     private AssessmentResultRepository resultRepository;
 
     @Autowired
+    private CertificationRepository certificationRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -46,6 +50,7 @@ class AssessmentServiceTest {
 
     @BeforeEach
     void setUp() {
+        certificationRepository.deleteAll();
         resultRepository.deleteAll();
         assessmentRepository.deleteAll();
         userRepository.deleteAll();

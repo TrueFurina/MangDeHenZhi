@@ -15,6 +15,7 @@
 
       <!-- 登录态：用户信息 + 退出 -->
       <div class="user-area" v-if="userStore.isLoggedIn">
+        <NotificationBell />
         <router-link to="/dashboard">
           <el-button :text="variant === 'sticky'" :type="variant === 'home' ? 'primary' : undefined" :plain="variant === 'home'">
             <el-icon><home-filled /></el-icon> 控制台
@@ -56,6 +57,7 @@
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
+import NotificationBell from '@/components/NotificationBell.vue'
 
 withDefaults(defineProps<{
   variant?: 'sticky' | 'home'

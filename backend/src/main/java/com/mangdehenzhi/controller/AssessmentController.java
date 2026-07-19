@@ -3,6 +3,7 @@ package com.mangdehenzhi.controller;
 import com.mangdehenzhi.dto.ApiResponse;
 import com.mangdehenzhi.dto.AssessmentResultDTO;
 import com.mangdehenzhi.dto.AssessmentSubmitRequest;
+import com.mangdehenzhi.dto.PageDTO;
 import com.mangdehenzhi.entity.Assessment;
 import com.mangdehenzhi.entity.User;
 import com.mangdehenzhi.service.AssessmentService;
@@ -39,13 +40,22 @@ public class AssessmentController {
     }
 
     @GetMapping("/results")
-    public ResponseEntity<ApiResponse<List<AssessmentResultDTO>>> getMyResults(
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(ApiResponse.success(assessmentService.getUserResults(user.getId())));
+    public ResponseEntity<ApiResponse<PageDTO<AssessmentResultDTO>>> getMyResults(
+            @AuthenticationPrincipal User user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        var results = assessmentService.getUserResults(user.getId());
+        int total = results.size();
+        int from = page * size;
+        int to = Math.min(from + size, total);
+        List<AssessmentResultDTO> pageContent = from < total ? results.subList(from, to) : List.of();
+        return ResponseEntity.ok(ApiResponse.success(
+                PageDTO.of(pageContent, page, size, total)));
     }
 
     @GetMapping("/results/{resultId}")
-    public ResponseEntity<ApiResponse<AssessmentResultDTO>> getResult(@PathVariable Long resultId) {
-        return ResponseEntity.ok(ApiResponse.success(assessmentService.getResultById(resultId)));
+    public ResponseEntity<ApiResponse<AssessmentResultDTO>> getResult(
+            @AuthenticationPrincipal User user, @PathVariable Long resultId) {
+        return ResponseEntity.ok(ApiResponse.success(assessmentService.getResultById(resultId, user.getId())));
     }
 }

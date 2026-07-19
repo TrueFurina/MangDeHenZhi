@@ -1,5 +1,6 @@
 package com.mangdehenzhi.service;
 
+import com.mangdehenzhi.dto.AssessmentResultDTO;
 import com.mangdehenzhi.entity.Course;
 import com.mangdehenzhi.entity.AssessmentResult;
 import com.mangdehenzhi.enums.CourseCategory;
@@ -19,6 +20,38 @@ import java.util.stream.Collectors;
 public class RecommendationService {
 
     private final CourseRepository courseRepository;
+
+    /**
+     * 获取默认推荐课程（用户无测评记录时）
+     */
+    public List<Course> getDefaultCourses() {
+        return courseRepository.findByPublishedTrue().stream().limit(6).collect(Collectors.toList());
+    }
+
+    /**
+     * 基于测评维度得分推荐课程
+     */
+    public List<Course> recommendFromDimensions(AssessmentResultDTO result) {
+        // 基于维度得分推荐
+        Map<String, Integer> dimScores = result.getDimensionScores();
+        if (dimScores == null || dimScores.isEmpty()) {
+            return getDefaultCourses();
+        }
+        List<String> weakDimensions = dimScores.entrySet().stream()
+                .filter(e -> e.getValue() < 60)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        List<CourseCategory> targetCategories = mapDimensionsToCategories(weakDimensions);
+        Set<Course> recommended = new LinkedHashSet<>();
+        for (CourseCategory category : targetCategories) {
+            recommended.addAll(courseRepository.findByCategory(category));
+        }
+        if (recommended.size() < 5) {
+            recommended.addAll(courseRepository.findByPublishedTrue());
+        }
+        return recommended.stream().limit(10).collect(Collectors.toList());
+    }
 
     /**
      * 根据测评结果推荐课程

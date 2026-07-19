@@ -102,5 +102,22 @@ jobs:
         run: |
           docker compose build
 
+      - name: 冒烟测试（启动容器并校验健康/首页）
+        run: |
+          docker compose up -d
+          # 等待前台(Nginx)与后端健康探针就绪（经 :80 反代到 /api/health）
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:80/ >/dev/null 2>&1 && \
+               curl -fsS http://localhost:80/api/health >/dev/null 2>&1; then
+              echo "✅ 冒烟通过：首页与 /api/health 均可访问"
+              break
+            fi
+            echo "⏳ 等待服务就绪 ($i/30)..."
+            sleep 5
+          done
+          echo "--- /api/health ---"; curl -fsS http://localhost:80/api/health || true
+          echo "--- 首页 HTTP 状态 ---"; curl -o /dev/null -w "%{http_code}\n" http://localhost:80/ || true
+          docker compose down -v
+
       - name: 镜像列表
         run: docker images

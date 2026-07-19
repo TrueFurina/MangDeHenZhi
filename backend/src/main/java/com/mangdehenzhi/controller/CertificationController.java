@@ -3,6 +3,7 @@ package com.mangdehenzhi.controller;
 import com.mangdehenzhi.dto.ApiResponse;
 import com.mangdehenzhi.entity.Certification;
 import com.mangdehenzhi.entity.User;
+import com.mangdehenzhi.exception.ResourceNotFoundException;
 import com.mangdehenzhi.service.CertificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,8 @@ public class CertificationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Certification>> getCertification(@PathVariable Long id) {
-        // 简化处理，实际应有对应方法
-        return ResponseEntity.ok(ApiResponse.success(null));
+        return certificationService.getCertificationById(id)
+                .map(cert -> ResponseEntity.ok(ApiResponse.success(cert)))
+                .orElseThrow(() -> new ResourceNotFoundException("Certification", id));
     }
 }

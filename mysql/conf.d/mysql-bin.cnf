@@ -1,0 +1,12 @@
+[mysqld]
+# 启用二进制日志，为 PITR（时间点恢复）提供基础
+# 注意：必须设置 server-id，否则 log-bin 无法在独立实例上启用
+server-id=1
+log-bin=/var/log/mysql/mysql-bin
+binlog-format=ROW
+# binlog 保留 7 天（604800 秒），避免无限膨胀
+binlog_expire_logs_seconds=604800
+# 每次提交刷盘，保证崩溃后可恢复（小并发场景性能可接受）
+sync_binlog=1
+# 仅记录行变更，避免 FUNCTION/TRIGGER 的不确定性复制问题
+binlog_row_image=FULL

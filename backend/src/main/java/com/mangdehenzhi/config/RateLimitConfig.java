@@ -73,11 +73,41 @@ public class RateLimitConfig implements WebMvcConfigurer {
         }
 
         private String getClientIp(HttpServletRequest request) {
-            String xf = request.getHeader("X-Forwarded-For");
-            if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
-                return xf.split(",")[0].trim();
+            String remote = request.getRemoteAddr();
+            // F-010/S-001：仅当请求来自受信代理（Nginx/内网）时才信任 X-Forwarded-For，
+            // 否则直接使用 TCP 对端地址，避免客户端伪造 XFF 绕过限流。
+            if (isTrustedProxy(remote)) {
+                String xf = request.getHeader("X-Forwarded-For");
+                if (xf != null && !xf.isBlank() && !"unknown".equalsIgnoreCase(xf)) {
+                    return xf.split(",")[0].trim();
+                }
+                String realIp = request.getHeader("X-Real-IP");
+                if (realIp != null && !realIp.isBlank()) {
+                    return realIp.trim();
+                }
             }
-            return request.getRemoteAddr();
+            return remote;
+        }
+
+        private boolean isTrustedProxy(String ip) {
+            if (ip == null) return false;
+            if (ip.equals("127.0.0.1") || ip.equals("::1")
+                    || ip.startsWith("10.") || ip.startsWith("192.168.")
+                    || ip.startsWith("169.254.")) {
+                return true;
+            }
+            if (ip.startsWith("172.")) {
+                // 172.16.0.0 - 172.31.255.255 为私有网段（含 Docker 默认桥接）
+                String[] parts = ip.split("\\.");
+                if (parts.length >= 2) {
+                    try {
+                        int second = Integer.parseInt(parts[1]);
+                        return second >= 16 && second <= 31;
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+            }
+            return false;
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.mangdehenzhi.controller;
 
 import com.mangdehenzhi.dto.ApiResponse;
+import com.mangdehenzhi.dto.UpdateProfileRequest;
 import com.mangdehenzhi.dto.UserDTO;
 import com.mangdehenzhi.entity.User;
 import com.mangdehenzhi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,8 +23,17 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(UserDTO.fromEntity(user)));
     }
 
+    @PutMapping("/me")
+    public ResponseEntity<ApiResponse<UserDTO>> updateProfile(
+            @AuthenticationPrincipal User user,
+            @Valid @RequestBody UpdateProfileRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(
+                userService.updateProfile(user.getId(), request)));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<UserDTO>> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.success(userService.getUserById(id)));
+    public ResponseEntity<ApiResponse<UserDTO>> getUserById(
+            @AuthenticationPrincipal User currentUser, @PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(userService.getUserById(id, currentUser)));
     }
 }

@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -36,8 +38,12 @@ public class DeepSeekService {
         this.enabled = apiKey != null && !apiKey.isBlank();
 
         if (enabled) {
+            SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+            requestFactory.setConnectTimeout(Duration.ofSeconds(3));
+            requestFactory.setReadTimeout(Duration.ofSeconds(30));
             this.restClient = RestClient.builder()
                     .baseUrl(DEEPSEEK_API_URL)
+                    .requestFactory(requestFactory)
                     .defaultHeader("Authorization", "Bearer " + apiKey)
                     .defaultHeader("Content-Type", "application/json")
                     .build();

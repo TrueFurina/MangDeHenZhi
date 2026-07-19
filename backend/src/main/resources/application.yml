@@ -31,7 +31,9 @@ spring:
 server:
   port: 8080
 
-# JWT 配置（生产环境请通过环境变量 JWT_SECRET 覆盖）
+# JWT 配置
+# 生产环境（prod profile）必须在环境变量中提供强随机 JWT_SECRET，缺失即启动失败（见 application-prod.yml）。
+# 以下仅为本地开发便利的占位密钥，严禁用于生产部署。
 jwt:
-  secret: mangdehenzhi-jwt-secret-key-2026-very-long-secret-for-security
+  secret: ${JWT_SECRET:local-dev-only-secret-do-not-use-in-prod-please-override}
   expiration: 86400000  # 24小时

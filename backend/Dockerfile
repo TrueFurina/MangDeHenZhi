@@ -39,4 +39,5 @@ ENV MYSQL_HOST=db
 ENV MYSQL_USER=mangdehenzhi
 ENV MYSQL_PASSWORD=""
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# 容器感知型 JVM 参数：堆随 cgroup 内存上限浮动，OOM 时直接退出（而非挂死）
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-XX:InitialRAMPercentage=50", "-XX:+UseG1GC", "-XX:+ExitOnOutOfMemoryError", "-jar", "app.jar"]

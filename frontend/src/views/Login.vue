@@ -34,6 +34,9 @@
             </el-input>
           </el-form-item>
           <el-form-item>
+            <CaptchaInput @update="onCaptcha" />
+          </el-form-item>
+          <el-form-item>
             <el-button type="primary" size="large" :loading="loading" @click="handleLogin" class="auth-submit-btn">
               {{ loading ? '登录中...' : '登 录' }}
             </el-button>
@@ -66,18 +69,25 @@ import { ref, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
+import CaptchaInput from '@/components/CaptchaInput.vue'
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 
 const form = reactive({ username: '', password: '' })
+const captcha = reactive({ key: '', answer: 0 })
 const loading = ref(false)
 const formRef = ref()
 
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+}
+
+function onCaptcha(key: string, answer: number) {
+  captcha.key = key
+  captcha.answer = answer
 }
 
 function fillAccount(username: string, password: string) {
@@ -91,7 +101,7 @@ async function handleLogin() {
     if (!valid) return
     loading.value = true
     try {
-      await userStore.login(form.username, form.password)
+      await userStore.login(form.username, form.password, captcha.key, captcha.answer)
       ElMessage.success(`🎉 登录成功，欢迎回来！`)
       const redirect = (route.query.redirect as string) || '/dashboard'
       router.push(redirect)

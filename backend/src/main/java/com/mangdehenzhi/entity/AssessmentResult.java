@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Entity
-@Table(name = "assessment_results")
+@Table(name = "assessment_results", indexes = {
+    @Index(name = "idx_result_assessment", columnList = "assessment_id"),
+    @Index(name = "idx_result_user", columnList = "user_id"),
+    @Index(name = "idx_result_passed", columnList = "passed")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

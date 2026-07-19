@@ -1,17 +1,18 @@
 <template>
   <div id="app-container">
     <router-view />
+    <MobileNav />
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
+import MobileNav from '@/components/MobileNav.vue'
 
 const userStore = useUserStore()
 
 onMounted(() => {
-  // 尝试从 localStorage 恢复登录状态
   userStore.initFromStorage()
 })
 </script>
@@ -26,5 +27,12 @@ html, body, #app {
 
 #app-container {
   height: 100%;
+}
+
+/* 移动端内容区域底部留白给导航栏 */
+@media (max-width: 768px) {
+  #app-container {
+    padding-bottom: 56px;
+  }
 }
 </style>

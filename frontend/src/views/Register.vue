@@ -49,7 +49,7 @@
         <div class="auth-footer">
           <p class="auth-tip">已有账号？<router-link to="/login">立即登录</router-link></p>
           <div class="terms">
-            注册即表示同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a>
+            注册即表示同意 <router-link to="/terms">服务条款</router-link> 和 <router-link to="/privacy">隐私政策</router-link>
           </div>
         </div>
       </div>

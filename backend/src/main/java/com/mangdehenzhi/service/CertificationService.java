@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,8 +56,12 @@ public class CertificationService {
         return certificationRepository.findByUserId(userId);
     }
 
+    public Optional<Certification> getCertificationById(Long id) {
+        return certificationRepository.findById(id);
+    }
+
     private String generateCertHash(Long userId, Long resultId) {
-        String raw = userId + "-" + resultId + "-" + System.currentTimeMillis();
+        String raw = userId + "-" + resultId + "-" + System.nanoTime() + "-" + java.util.UUID.randomUUID();
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(raw.getBytes());

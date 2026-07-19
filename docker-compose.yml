@@ -10,20 +10,27 @@ services:
     container_name: mangdehenzhi-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # 必须从 .env 提供强随机口令（openssl rand -base64 24），缺失则启动失败
       MYSQL_DATABASE: mangdehenzhi
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
-    ports:
-      - "3306:3306"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 必须从 .env 提供强随机口令，缺失则启动失败
     volumes:
       - mysql_data:/var/lib/mysql
       - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/conf.d:/etc/mysql/conf.d:ro        # 开启 binlog（PITR 基础）
+      - mysql_binlogs:/var/log/mysql               # binlog 独立于数据卷，便于 PITR
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1g
+        reservations:
+          memory: 512m
 
   # ---- Spring Boot 后端 ----
   backend:
@@ -37,13 +44,25 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      JWT_SECRET: ${JWT_SECRET:-mangdehenzhi-jwt-secret-key-2026-very-long-secret-for-security}
+      JWT_SECRET: ${JWT_SECRET}  # 必须从 .env 提供强随机密钥（openssl rand -base64 48），缺失则后端启动失败
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       MYSQL_HOST: db
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mangdehenzhi123}
-    ports:
-      - "8080:8080"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 必须从 .env 提供强随机口令，缺失则启动失败
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1.5g
+        reservations:
+          memory: 1g
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/api/health | grep -q UP || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
 
   # ---- Nginx 前端 ----
   frontend:
@@ -53,9 +72,50 @@ services:
     container_name: mangdehenzhi-frontend
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256m
+        reservations:
+          memory: 128m
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
     ports:
       - "80:80"
 
+  # ---- 数据库备份（每日全量 dump + binlog 归档，支持 PITR）----
+  backup:
+    image: mysql:8.0
+    container_name: mangdehenzhi-backup
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: mangdehenzhi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: mangdehenzhi
+      BACKUP_DIR: /backups
+      RETENTION_DAYS: 7
+      TZ: Asia/Shanghai
+    volumes:
+      - ./scripts/backup.sh:/backup.sh:ro
+      - mysql_backups:/backups
+      - mysql_binlogs:/var/log/mysql:ro
+    entrypoint: ["/bin/sh", "-c", "sh /backup.sh && while true; do sleep 86400; sh /backup.sh; done"]
+
 volumes:
   mysql_data:
+  mysql_binlogs:
+  mysql_backups:

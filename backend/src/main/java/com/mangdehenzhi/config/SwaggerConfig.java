@@ -9,12 +9,14 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
  * Swagger/OpenAPI 配置 — 接口文档
  * 访问地址: http://localhost:8080/swagger-ui.html
  */
 @Configuration
+@Profile("!prod")
 public class SwaggerConfig {
 
     @Bean

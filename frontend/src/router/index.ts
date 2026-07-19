@@ -18,9 +18,25 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/Register.vue'),
   },
   {
+    path: '/terms',
+    name: 'TermsOfService',
+    component: () => import('@/views/TermsOfService.vue'),
+  },
+  {
+    path: '/privacy',
+    name: 'PrivacyPolicy',
+    component: () => import('@/views/PrivacyPolicy.vue'),
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('@/views/Dashboard.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('@/views/Profile.vue'),
     meta: { requiresAuth: true },
   },
   {
@@ -63,7 +79,23 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/Certifications.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('@/views/AdminDashboard.vue'),
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
   // 404 页面
+  {
+    path: '/network-error',
+    name: 'NetworkError',
+    component: () => import('@/views/NetworkError.vue'),
+  },
+  {
+    path: '/server-error',
+    name: 'ServerError',
+    component: () => import('@/views/ServerError.vue'),
+  },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
