@@ -95,7 +95,7 @@ const aiCount = ref(2)
 
 // WebSocket 实时通信
 const ws = useWebSocket(
-  currentRoomId,
+  currentRoomId.value,
   String(userStore.currentUser?.id || ''),
   userStore.currentUser?.nickname || userStore.currentUser?.username || '访客'
 )

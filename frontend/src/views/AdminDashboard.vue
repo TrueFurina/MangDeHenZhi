@@ -154,7 +154,7 @@ onMounted(async () => {
       adminApi.getStats(),
     ])
     users.value = userRes.data || []
-    courses.value = courseRes.data?.content || []
+    courses.value = (courseRes.data as any)?.content || []
     stats.userCount = statsRes.data?.userCount || 0
     stats.courseCount = statsRes.data?.courseCount || 0
   } catch (_) {

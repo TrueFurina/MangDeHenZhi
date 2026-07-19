@@ -54,7 +54,7 @@ export const userApi = {
 
 // ===== Auth API =====
 export const authApi = {
-  login: (data: { username: string; password: string }) =>
+  login: (data: { username: string; password: string; captchaKey?: string; captchaAnswer?: number }) =>
     http.post<any, ApiResponse<LoginResponse>>('/auth/login', data),
   register: (data: {
     username: string
