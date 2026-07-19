@@ -8,6 +8,12 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 3
+      connection-timeout: 5000
+      idle-timeout: 300000
+      max-lifetime: 1200000
 
   h2:
     console:
@@ -19,6 +25,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
@@ -30,6 +37,10 @@ spring:
 
 server:
   port: 8080
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain
+    min-response-size: 1024
 
 # JWT 配置
 # 生产环境（prod profile）必须在环境变量中提供强随机 JWT_SECRET，缺失即启动失败（见 application-prod.yml）。
