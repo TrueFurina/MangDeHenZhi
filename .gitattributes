@@ -1,0 +1,40 @@
+# Auto-detect text files and set LF line endings
+* text=auto eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.lottie binary
+
+# Git files
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+*.ps1 text eol=lf
+
+# Batch files
+*.cmd text eol=crlf
+
+# Documents
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+
+# Java
+*.java text eol=lf
+
+# Frontend
+*.ts text eol=lf
+*.vue text eol=lf
+*.css text eol=lf
+*.html text eol=lf
