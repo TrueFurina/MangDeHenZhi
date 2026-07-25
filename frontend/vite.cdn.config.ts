@@ -1,7 +1,13 @@
+# CDN 部署配置
+# 构建时将静态资源上传到 CDN，提升全球加载速度
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, URL } from 'node:url'
+
+const isCDN = process.env.CDN === 'true'
+const cdnBase = process.env.CDN_BASE || 'https://assets.mangdehenzhi.com/prod'
 
 export default defineConfig({
   plugins: [
@@ -76,4 +82,9 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
     cssCodeSplit: true,
   },
+}).then(config => {
+  if (isCDN && cdnBase) {
+    config.base = cdnBase
+  }
+  return config
 })

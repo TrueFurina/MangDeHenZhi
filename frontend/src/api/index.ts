@@ -1,6 +1,7 @@
 import axios from 'axios'
-import type { ApiResponse, LoginResponse, Assessment, AssessmentResult, Course, Certification, MetaverseSession, User } from '@/types'
+import type { ApiResponse, LoginResponse, Assessment, AssessmentResult, Course, Certification, MetaverseSession, User, Job, JobMatchResult, Application } from '@/types'
 import { ElMessage } from 'element-plus'
+import { safeLocalStorage } from '@/utils/storage'
 import router from '@/router'
 
 const http = axios.create({
@@ -11,7 +12,7 @@ const http = axios.create({
 
 // 请求拦截器 - 自动添加Token
 http.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
+  const token = safeLocalStorage.getItem('token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -20,7 +21,14 @@ http.interceptors.request.use((config) => {
 
 // 响应拦截器 - 统一处理错误
 http.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    const data = response.data
+    // F6: 校验后端统一响应体 ApiResponse.code，非 200 视为业务失败
+    if (data && typeof data === 'object' && 'code' in data && data.code !== 200) {
+      return Promise.reject(new Error(data.message || '请求失败'))
+    }
+    return data
+  },
   (error) => {
     if (!error.response) {
       // 网络错误（无响应）
@@ -30,8 +38,8 @@ http.interceptors.response.use(
     }
     const status = error.response.status
     if (status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      safeLocalStorage.removeItem('token')
+      safeLocalStorage.removeItem('user')
       router.push('/login')
     } else if (status === 403) {
       ElMessage.error('没有权限执行此操作')
@@ -109,6 +117,25 @@ export const searchApi = {
     http.get<any, ApiResponse<Course[]>>(`/search/courses?q=${encodeURIComponent(q)}`),
 }
 
+// ===== AI Tutor API (F1) =====
+export const aiApi = {
+  // 调用后端 /api/ai/chat（自动携带 token，经鉴权后转发大模型）
+  chat: (messages: { role: string; content: string }[]) =>
+    http.post<any, ApiResponse<string>>('/ai/chat', { messages }),
+}
+
+// ===== Diagnostic API (P1 统一抽象) =====
+export const diagnosticApi = {
+  start: () => http.get<any, ApiResponse<any>>('/diagnostic/start'),
+  submit: (answers: Record<string, string>) =>
+    http.post<any, ApiResponse<any>>('/diagnostic/submit', { answers }),
+}
+
+// ===== Skill API (P1 统一抽象) =====
+export const skillApi = {
+  getAll: () => http.get<any, ApiResponse<any>>('/skills/all'),
+}
+
 // ===== Notification API =====
 export const notificationApi = {
   getAll: () => http.get<any, ApiResponse<Notification[]>>('/notifications'),
@@ -135,4 +162,25 @@ export const adminApi = {
   deleteCourse: (id: number) =>
     http.delete<any, ApiResponse<void>>(`/admin/courses/${id}`),
   getStats: () => http.get<any, ApiResponse<{ userCount: number; courseCount: number }>>('/admin/stats'),
+}
+
+// ===== Recruitment API (校招选岗 & 网申填报) =====
+export const recruitmentApi = {
+  // 职位
+  getJobs: () => http.get<any, ApiResponse<Job[]>>('/recruitment/jobs'),
+  getJob: (id: number) => http.get<any, ApiResponse<Job>>(`/recruitment/jobs/${id}`),
+  searchJobs: (q: string) => http.get<any, ApiResponse<Job[]>>(`/recruitment/jobs/search?q=${encodeURIComponent(q)}`),
+  // AI 匹配
+  matchJobs: (skillScores: Record<string, number>) =>
+    http.post<any, ApiResponse<JobMatchResult[]>>('/recruitment/match', skillScores),
+  // 网申
+  createApplication: (jobId: number) =>
+    http.post<any, ApiResponse<Application>>('/recruitment/applications', { jobId }),
+  getMyApplications: () => http.get<any, ApiResponse<Application[]>>('/recruitment/applications'),
+  updateApplicationStatus: (id: number, status: string) =>
+    http.put<any, ApiResponse<Application>>(`/recruitment/applications/${id}/status`, { status }),
+  getSuggestions: (id: number, data: { jobDescription: string; skillScores: Record<string, number>; formFields: string[] }) =>
+    http.post<any, ApiResponse<Record<string, string>>>(`/recruitment/applications/${id}/suggestions`, data),
+  analyzeResume: (resumeText: string, jobDescription: string) =>
+    http.post<any, ApiResponse<string>>('/recruitment/analyze-resume', { resumeText, jobDescription }),
 }

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { authApi } from '@/api'
+import { safeLocalStorage } from '@/utils/storage'
 import type { User } from '@/types'
 
 export const useUserStore = defineStore('user', () => {
@@ -11,11 +12,17 @@ export const useUserStore = defineStore('user', () => {
   const isAdmin = computed(() => currentUser.value?.role === 'ADMIN')
 
   function initFromStorage() {
-    const savedToken = localStorage.getItem('token')
-    const savedUser = localStorage.getItem('user')
-    if (savedToken && savedUser) {
-      token.value = savedToken
-      currentUser.value = JSON.parse(savedUser)
+    const savedToken = safeLocalStorage.getItem('token')
+    const savedUser = safeLocalStorage.getItem('user')
+    if (savedToken) token.value = savedToken
+    if (savedUser) {
+      try {
+        currentUser.value = JSON.parse(savedUser)
+      } catch (e) {
+        // F7: 本地数据损坏时清空，避免解析失败导致白屏
+        safeLocalStorage.removeItem('user')
+        console.error('解析本地用户数据失败，已重置', e)
+      }
     }
   }
 
@@ -23,8 +30,8 @@ export const useUserStore = defineStore('user', () => {
     const res = await authApi.login({ username, password, captchaKey, captchaAnswer })
     token.value = res.data.token
     currentUser.value = res.data.user
-    localStorage.setItem('token', res.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.user))
+    safeLocalStorage.setItem('token', res.data.token)
+    safeLocalStorage.setItem('user', JSON.stringify(res.data.user))
     return res.data
   }
 
@@ -37,16 +44,16 @@ export const useUserStore = defineStore('user', () => {
     const res = await authApi.register(data)
     token.value = res.data.token
     currentUser.value = res.data.user
-    localStorage.setItem('token', res.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.user))
+    safeLocalStorage.setItem('token', res.data.token)
+    safeLocalStorage.setItem('user', JSON.stringify(res.data.user))
     return res.data
   }
 
   function logout() {
     token.value = null
     currentUser.value = null
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+    safeLocalStorage.removeItem('token')
+    safeLocalStorage.removeItem('user')
   }
 
   return {
