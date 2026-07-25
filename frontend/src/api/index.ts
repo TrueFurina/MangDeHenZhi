@@ -19,19 +19,42 @@ http.interceptors.request.use((config) => {
   return config
 })
 
-// 响应拦截器 - 统一处理错误
+// 重试配置 — 网络抖动/5xx 时自动重试
+const MAX_RETRIES = 2
+const RETRY_DELAY_MS = 1000
+
+function shouldRetry(error: any): boolean {
+  // 网络错误（无响应）或 5xx 服务器错误可重试
+  if (!error.response) return true
+  const status = error.response.status
+  return status === 429 || (status >= 500 && status < 600)
+}
+
+// 响应拦截器 - 统一处理错误 + 自动重试
 http.interceptors.response.use(
   (response) => {
     const data = response.data
-    // F6: 校验后端统一响应体 ApiResponse.code，非 200 视为业务失败
     if (data && typeof data === 'object' && 'code' in data && data.code !== 200) {
       return Promise.reject(new Error(data.message || '请求失败'))
     }
     return data
   },
-  (error) => {
+  async (error) => {
+    const config = error.config || {}
+
+    // 重试逻辑（最多 MAX_RETRIES 次）
+    if (shouldRetry(error) && !config._retryCount) {
+      config._retryCount = 0
+    }
+    if (shouldRetry(error) && config._retryCount < MAX_RETRIES) {
+      config._retryCount = (config._retryCount || 0) + 1
+      console.warn(`[API Retry] 重试第 ${config._retryCount} 次: ${config.url}`)
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS * config._retryCount))
+      return http(config) // 重新发起请求
+    }
+
+    // 超出重试次数或不可重试的错误 → 统一处理
     if (!error.response) {
-      // 网络错误（无响应）
       ElMessage.error('网络连接异常，请检查网络后重试')
       router.push('/network-error')
       return Promise.reject(error)

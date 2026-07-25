@@ -42,9 +42,32 @@ server:
     mime-types: application/json,application/xml,text/html,text/plain
     min-response-size: 1024
 
+# 日志配置（输出 Trace ID 到每行日志）
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{traceId:-no-trace}] %-5level %logger{36} - %msg%n"
+
 # JWT 配置
 # 生产环境（prod profile）必须在环境变量中提供强随机 JWT_SECRET，缺失即启动失败（见 application-prod.yml）。
 # 以下仅为本地开发便利的占位密钥，严禁用于生产部署。
 jwt:
   secret: ${JWT_SECRET:local-dev-only-secret-do-not-use-in-prod-please-override}
   expiration: 86400000  # 24小时
+
+# Actuator 监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  metrics:
+    tags:
+      application: mangdehenzhi-backend
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    health:
+      show-details: when-authorized
+      show-components: when-authorized
