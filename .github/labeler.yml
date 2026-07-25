@@ -1,0 +1,32 @@
+# Auto Labeler 配置 — 根据文件路径自动打标签
+# 被 auto-merge.yml 工作流调用
+
+# 后端
+backend:
+  - changed-files:
+      - any: ["backend/**"]
+
+# 前端
+frontend:
+  - changed-files:
+      - any: ["frontend/**"]
+
+# 基础设施
+infra:
+  - changed-files:
+      - any: ["docker-compose*", "Dockerfile*", ".github/**", "scripts/**"]
+
+# 文档
+documentation:
+  - changed-files:
+      - any: ["**/*.md", "docs/**"]
+
+# 测试
+test:
+  - changed-files:
+      - any: ["**/*Test.java", "**/*.test.ts", "**/__tests__/**"]
+
+# 依赖更新（Dependabot 自带 "dependencies" 标签，这是补充）
+security:
+  - changed-files:
+      - any: ["**/package-lock.json", "**/pom.xml", "**/requirements.txt"]

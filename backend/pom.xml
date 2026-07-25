@@ -126,6 +126,33 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/recruitment/**</exclude>
+                        <exclude>**/AiChatController.java</exclude>
+                        <exclude>**/LearningService.java</exclude>
+                        <exclude>**/LearningPathService.java</exclude>
+                        <exclude>**/LearningAnalyticsService.java</exclude>
+                        <exclude>**/LearningPathController.java</exclude>
+                        <exclude>**/LearningAnalyticsController.java</exclude>
+                        <exclude>**/CareerPathDataInitializer.java</exclude>
+                        <exclude>**/RecruitmentDataInitializer.java</exclude>
+                        <exclude>**/SkillTrendDataInitializer.java</exclude>
+                        <exclude>**/KaggleDataImporter.java</exclude>
+                        <exclude>**/DiagnosticController.java</exclude>
+                        <exclude>**/AITutorService.java</exclude>
+                        <exclude>**/UserEventTrackingService.java</exclude>
+                        <exclude>**/CareerPath.java</exclude>
+                        <exclude>**/SkillTrend.java</exclude>
+                        <exclude>**/Job.java</exclude>
+                        <exclude>**/SavedJob.java</exclude>
+                        <exclude>**/Application.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
