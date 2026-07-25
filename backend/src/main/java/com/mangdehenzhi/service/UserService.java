@@ -114,4 +114,27 @@ public class UserService {
     public long getUserCount() {
         return userRepository.count();
     }
+
+    public User createUserByAdmin(RegisterRequest request) {
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new BusinessException("用户名已存在");
+        }
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new BusinessException("邮箱已被注册");
+        }
+        User user = User.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
+                .nickname(request.getNickname() != null ? request.getNickname() : request.getUsername())
+                .phone(request.getPhone())
+                .role(UserRole.STUDENT)
+                .build();
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        User user = getUserEntityById(id);
+        userRepository.delete(user);
+    }
 }

@@ -2,6 +2,7 @@ package com.mangdehenzhi.controller;
 
 import com.mangdehenzhi.dto.ApiResponse;
 import com.mangdehenzhi.dto.PageDTO;
+import com.mangdehenzhi.dto.RegisterRequest;
 import com.mangdehenzhi.dto.UserDTO;
 import com.mangdehenzhi.entity.Course;
 import com.mangdehenzhi.entity.User;
@@ -9,12 +10,13 @@ import com.mangdehenzhi.enums.UserRole;
 import com.mangdehenzhi.exception.BusinessException;
 import com.mangdehenzhi.service.CourseService;
 import com.mangdehenzhi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 管理后台端点 — 仅 ADMIN 角色可访问
@@ -41,6 +43,15 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success(userService.getUserEntityById(id)));
     }
 
+    @PostMapping("/users")
+    public ResponseEntity<ApiResponse<User>> createUser(
+            @AuthenticationPrincipal User admin,
+            @Valid @RequestBody RegisterRequest request) {
+        checkAdmin(admin);
+        return ResponseEntity.ok(ApiResponse.success("用户创建成功",
+                userService.createUserByAdmin(request)));
+    }
+
     @PutMapping("/users/{id}/role")
     public ResponseEntity<ApiResponse<User>> updateUserRole(
             @AuthenticationPrincipal User admin,
@@ -59,6 +70,35 @@ public class AdminController {
             throw new BusinessException("不能禁用自己");
         }
         return ResponseEntity.ok(ApiResponse.success(userService.toggleUserStatus(id)));
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteUser(
+            @AuthenticationPrincipal User admin,
+            @PathVariable Long id) {
+        checkAdmin(admin);
+        if (admin.getId().equals(id)) {
+            throw new BusinessException("不能删除自己");
+        }
+        userService.deleteUser(id);
+        return ResponseEntity.ok(ApiResponse.success("用户已删除", null));
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<ApiResponse<List<Map<String, Object>>>> getAllRoles(
+            @AuthenticationPrincipal User admin) {
+        checkAdmin(admin);
+        List<Map<String, Object>> roles = Arrays.stream(UserRole.values()).map(role -> {
+            Map<String, Object> r = new HashMap<>();
+            r.put("name", role.name());
+            r.put("description", switch (role) {
+                case ADMIN -> "管理员 — 全系统管理权限";
+                case TEACHER -> "教师 — 课程管理与测评创建";
+                case STUDENT -> "学员 — 学习和测评";
+            });
+            return r;
+        }).toList();
+        return ResponseEntity.ok(ApiResponse.success(roles));
     }
 
     // ===== 课程管理 =====
