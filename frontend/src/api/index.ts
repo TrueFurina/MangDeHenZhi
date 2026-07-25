@@ -176,6 +176,10 @@ export const adminApi = {
     http.put<any, ApiResponse<User>>(`/admin/users/${id}/role`, { role }),
   toggleUserStatus: (id: number) =>
     http.put<any, ApiResponse<User>>(`/admin/users/${id}/toggle-status`),
+  createUser: (data: { username: string; email: string; password: string; nickname?: string }) =>
+    http.post<any, ApiResponse<User>>('/admin/users', data),
+  deleteUser: (id: number) =>
+    http.delete<any, ApiResponse<void>>(`/admin/users/${id}`),
   getCourses: (page = 0, size = 20) =>
     http.get<any, ApiResponse<Course[]>>(`/admin/courses?page=${page}&size=${size}`),
   createCourse: (data: Partial<Course>) =>
