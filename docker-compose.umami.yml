@@ -1,0 +1,34 @@
+# ============================================================
+# Umami Analytics 自建统计服务
+# 使用方式: docker compose -f docker-compose.umami.yml up -d
+# 访问地址: http://localhost:3000
+# 默认管理员: admin / umami
+# ============================================================
+version: "3.8"
+
+services:
+  umami-db:
+    image: postgres:15-alpine
+    container_name: mangdehenzhi-umami-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: ${UMAMI_DB_PASSWORD:-umami123}
+    volumes:
+      - umami_data:/var/lib/postgresql/data
+
+  umami:
+    image: ghcr.io/umami-software/umami:latest
+    container_name: mangdehenzhi-umami
+    restart: unless-stopped
+    depends_on:
+      - umami-db
+    environment:
+      DATABASE_URL: postgresql://umami:${UMAMI_DB_PASSWORD:-umami123}@umami-db:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET:-umami-secret-change-in-production}
+    ports:
+      - "3000:3000"
+
+volumes:
+  umami_data:

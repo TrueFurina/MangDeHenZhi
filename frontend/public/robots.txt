@@ -1,0 +1,13 @@
+# robots.txt — 芒德矩阵 (MangDeHenZhi)
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Disallow API paths
+Disallow: /api/
+Disallow: /h2-console/
+Disallow: /actuator/
+
+# Sitemap location
+Sitemap: https://mangdehenzhi.com/sitemap.xml
