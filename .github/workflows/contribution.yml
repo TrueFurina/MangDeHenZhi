@@ -1,0 +1,32 @@
+# ============================================================
+# Daily Contribution Workflow
+# 每天 4 次自动 commit，保持贡献图深绿色
+# Runs at 00:00, 06:00, 12:00, 18:00 UTC
+# ============================================================
+name: Daily Contribution
+
+on:
+  schedule:
+    - cron: "0 0,6,12,18 * * *"
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update activity
+        run: |
+          echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') — Daily heartbeat" >> .github/activity.txt
+
+      - name: Commit and push
+        run: |
+          git config user.name "糖露星霜•暖霞拾光"
+          git config user.email "2468001320@qq.com"
+          git add .github/activity.txt
+          git diff --cached --quiet || git commit -m "chore: daily contribution heartbeat"
+          git push
