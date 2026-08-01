@@ -17,13 +17,13 @@
     "echarts": "^6.1.0",
     "element-plus": "^2.9.1",
     "pinia": "^2.3.0",
-    "three": "^0.170.0",
+    "three": "^0.185.1",
     "vue": "^3.5.13",
     "vue-echarts": "^8.0.1",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@types/three": "^0.170.0",
+    "@types/three": "^0.185.1",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vitest/coverage-v8": "^2.1.0",
     "jsdom": "^25.0.0",
