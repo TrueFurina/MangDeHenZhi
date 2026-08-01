@@ -20,7 +20,7 @@
     <properties>
         <java.version>17</java.version>
         <jjwt.version>0.12.6</jjwt.version>
-        <hutool.version>5.8.32</hutool.version>
+        <hutool.version>5.8.47</hutool.version>
     </properties>
 
     <dependencies>
