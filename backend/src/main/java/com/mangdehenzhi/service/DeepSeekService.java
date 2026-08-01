@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mangdehenzhi.recruitment.Job;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -148,6 +150,103 @@ public class DeepSeekService {
             log.error("调用 DeepSeek API 失败: {}", e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * 通用对话接口 — AI 导师聊天
+     */
+    public String chat(String systemInstruction, List<Map<String, String>> conversation) {
+        if (!enabled) return null;
+        StringBuilder sb = new StringBuilder(systemInstruction).append("\n\n对话历史:\n");
+        conversation.forEach(m -> sb.append(m.get("role")).append(": ").append(m.get("content")).append("\n"));
+        return callDeepSeek(sb.toString());
+    }
+
+    /**
+     * 生成网申填写建议
+     */
+    public String generateApplicationSuggestions(String companyName, String positionName,
+                                                 String jobDesc, Map<String, Integer> userSkills,
+                                                 List<String> formFields) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是网申填报助手。请为以下职位生成网申各字段填写建议，返回 JSON 对象（不要 markdown 包裹）：
+            公司: %s, 职位: %s
+            职位描述: %s
+            用户技能: %s
+            需要生成的字段: %s
+            """, companyName, positionName, jobDesc, userSkills, formFields);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 分析简历与职位匹配度，给出优化建议
+     */
+    public String analyzeResumeFit(String resumeText, String jobDescription) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是简历优化专家。请分析以下简历与目标职位的匹配度，返回 JSON（不要 markdown 包裹）：
+            {"matchScore": 0-100, "strengths": [...], "weaknesses": [...], "improvements": [...]}
+            简历: %s
+            职位要求: %s
+            """, resumeText, jobDescription);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 基于技能画像匹配职位
+     */
+    public String analyzeJobMatch(Map<String, Integer> skillScores, List<Job> jobs) {
+        if (!enabled) return null;
+        List<String> jobDescs = jobs.stream()
+                .map(j -> j.getTitle() + " - " + j.getCompany() + ": " + j.getRequirements())
+                .toList();
+        String prompt = String.format("""
+            你是职业匹配专家。基于用户技能画像，从以下职位中推荐最匹配的，返回 JSON（不要 markdown 包裹）：
+            用户技能: %s
+            职位列表: %s
+            """, skillScores, jobDescs);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 生成苏格拉底式提问
+     */
+    public String generateSocraticQuestions(String topic, String content) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是苏格拉底式学习导师。基于以下知识点生成引导式提问，帮助学习者主动思考，返回 JSON（不要 markdown 包裹）：
+            知识点: %s
+            内容: %s
+            """, topic, content);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 评估费曼学习法讲解
+     */
+    public String evaluateFeynmanExplanation(String concept, String userExplanation) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是费曼学习法评估专家。评估学习者的讲解，返回 JSON（不要 markdown 包裹）：
+            {"score": 0-100, "clarity": "...", "gaps": [...], "suggestions": [...]}
+            概念: %s
+            学习者讲解: %s
+            """, concept, userExplanation);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 生成跟进提问
+     */
+    public String generateFollowUpQuestion(String topic, String previousAnswer) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是学习导师。基于学习者的回答，生成一个加深理解的跟进问题（直接返回问题文本）：
+            主题: %s
+            学习者回答: %s
+            """, topic, previousAnswer);
+        return callDeepSeek(prompt);
     }
 
     public boolean isEnabled() {
