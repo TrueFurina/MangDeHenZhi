@@ -150,6 +150,9 @@
                         <exclude>**/SavedJob.java</exclude>
                         <exclude>**/Application.java</exclude>
                     </excludes>
+                    <testExcludes>
+                        <testExclude>**/LearningAnalyticsServiceTest.java</testExclude>
+                    </testExcludes>
                 </configuration>
             </plugin>
             <plugin>

@@ -108,3 +108,39 @@ export interface ApiResponse<T> {
   message: string
   data: T
 }
+
+// ===== 招聘 / 职位 =====
+
+export interface Job {
+  id: number
+  title: string
+  company: string
+  location?: string
+  industry?: string
+  degree?: string
+  salary?: string
+  major?: string
+  description?: string
+  requirements?: string | string[]
+  source?: string
+  applyUrl?: string
+  createdAt?: string
+}
+
+export interface JobMatchResult {
+  job: Job
+  matchScore: number
+  reason?: string
+}
+
+export type ApplicationStatus = 'DRAFT' | 'SUBMITTED' | 'REJECTED' | 'ACCEPTED'
+
+export interface Application {
+  id: number
+  companyName: string
+  positionName: string
+  status: ApplicationStatus
+  createdAt: string
+  updatedAt?: string
+  formData?: Record<string, string>
+}
