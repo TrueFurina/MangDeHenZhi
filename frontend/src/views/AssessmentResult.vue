@@ -163,6 +163,16 @@ const dimLabels: Record<string, string> = {
   communication: '沟通能力',
   collaboration: '协作能力',
   problem_solving: '问题解决能力',
+  leadership: '领导力',
+  adaptability: '适应力',
+  computer_basics: '计算机基础',
+  data_analysis: '数据分析',
+  team_collaboration: '团队协作',
+  '沟通能力': '沟通能力',
+  '协作能力': '协作能力',
+  '问题解决能力': '问题解决能力',
+  '领导力': '领导力',
+  '适应力': '适应力',
 }
 
 const COLORS = ['#409eff', '#67c23a', '#e6a23c', '#f56c6c', '#909399']

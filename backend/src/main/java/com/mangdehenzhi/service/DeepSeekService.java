@@ -249,6 +249,27 @@ public class DeepSeekService {
         return callDeepSeek(prompt);
     }
 
+    /**
+     * JD 翻译官 — 把抽象的职位描述翻译成具体的工作日常、能力要求和薪资拆解
+     */
+    public String translateJobDescription(String jobTitle, String jobDescription) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是"JD 翻译官"。请把以下职位描述翻译成求职者能听懂的内容，返回 JSON（不要 markdown 包裹）：
+            {
+              "dailyWork": "这份工作每天具体做什么（举例3-4条）",
+              "skillsNeeded": ["必须具备的技能", ...],
+              "softSkills": ["软技能", ...],
+              "salaryBreakdown": "薪资构成拆解（底薪/绩效/福利等，结合行业常识）",
+              "careerPath": "这个岗位的晋升路径",
+              "honestAdvice": "适合什么样的人/不适合什么样的人"
+            }
+            职位名称: %s
+            职位描述: %s
+            """, jobTitle, jobDescription);
+        return callDeepSeek(prompt);
+    }
+
     public boolean isEnabled() {
         return enabled;
     }

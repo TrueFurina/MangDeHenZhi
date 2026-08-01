@@ -210,4 +210,7 @@ export const recruitmentApi = {
     http.post<any, ApiResponse<Record<string, string>>>(`/recruitment/applications/${id}/suggestions`, data),
   analyzeResume: (resumeText: string, jobDescription: string) =>
     http.post<any, ApiResponse<string>>('/recruitment/analyze-resume', { resumeText, jobDescription }),
+  // JD 翻译官
+  translateJd: (jobTitle: string, jobDescription: string) =>
+    http.post<any, ApiResponse<string>>('/recruitment/translate-jd', { jobTitle, jobDescription }),
 }

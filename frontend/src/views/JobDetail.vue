@@ -35,6 +35,41 @@
             <el-button size="large" @click="analyzeFit" :loading="analyzing">
               <el-icon><data-analysis /></el-icon> 匹配分析
             </el-button>
+            <el-button size="large" @click="translateJd" :loading="translatingJd">
+              <el-icon><magic-stick /></el-icon> JD 翻译官
+            </el-button>
+          </div>
+        </div>
+
+        <!-- JD 翻译官 -->
+        <div v-if="jdTranslation" class="glass-card fit-card">
+          <h3>🔍 JD 翻译官</h3>
+          <div class="jd-translation">
+            <template v-if="parsedJdTranslation">
+              <div v-if="parsedJdTranslation.dailyWork" class="jd-section">
+                <h4>📌 每天做什么</h4>
+                <p class="fit-text">{{ parsedJdTranslation.dailyWork }}</p>
+              </div>
+              <div v-if="parsedJdTranslation.skillsNeeded?.length" class="jd-section">
+                <h4>🛠 必备技能</h4>
+                <div class="tag-list">
+                  <el-tag v-for="(s, i) in parsedJdTranslation.skillsNeeded" :key="i" style="margin:2px">{{ s }}</el-tag>
+                </div>
+              </div>
+              <div v-if="parsedJdTranslation.salaryBreakdown" class="jd-section">
+                <h4>💰 薪资拆解</h4>
+                <p class="fit-text">{{ parsedJdTranslation.salaryBreakdown }}</p>
+              </div>
+              <div v-if="parsedJdTranslation.careerPath" class="jd-section">
+                <h4>📈 晋升路径</h4>
+                <p class="fit-text">{{ parsedJdTranslation.careerPath }}</p>
+              </div>
+              <div v-if="parsedJdTranslation.honestAdvice" class="jd-section">
+                <h4>💡 诚实建议</h4>
+                <p class="fit-text">{{ parsedJdTranslation.honestAdvice }}</p>
+              </div>
+            </template>
+            <p v-else class="fit-text">{{ jdTranslation }}</p>
           </div>
         </div>
 
@@ -74,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { recruitmentApi } from '@/api'
@@ -88,6 +123,15 @@ const job = ref<Job | null>(null)
 const applying = ref(false)
 const analyzing = ref(false)
 const fitAnalysis = ref('')
+const translatingJd = ref(false)
+const jdTranslation = ref('')
+
+const parsedJdTranslation = computed(() => {
+  if (!jdTranslation.value) return null
+  try {
+    return JSON.parse(jdTranslation.value)
+  } catch { return null }
+})
 
 function getIndustryIcon(industry?: string): string {
   const icons: Record<string, string> = {
@@ -128,6 +172,21 @@ async function analyzeFit() {
     ElMessage.warning('匹配分析暂不可用')
   } finally {
     analyzing.value = false
+  }
+}
+
+async function translateJd() {
+  if (!job.value) return
+  translatingJd.value = true
+  try {
+    const desc = (job.value.description || '') + '\n' + (job.value.requirements || '')
+    const res = await recruitmentApi.translateJd(job.value.title, desc)
+    jdTranslation.value = res.data
+    ElMessage.success('🔍 JD 翻译完成')
+  } catch (err) {
+    ElMessage.warning('JD 翻译暂不可用，请稍后再试')
+  } finally {
+    translatingJd.value = false
   }
 }
 
