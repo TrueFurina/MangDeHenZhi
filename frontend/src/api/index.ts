@@ -145,6 +145,9 @@ export const aiApi = {
   // 调用后端 /api/ai/chat（自动携带 token，经鉴权后转发大模型）
   chat: (messages: { role: string; content: string }[]) =>
     http.post<any, ApiResponse<string>>('/ai/chat', { messages }),
+  // 面试/答题提示（卡壳时获取引导）
+  hint: (question: string, dimension: string) =>
+    http.post<any, ApiResponse<string>>('/ai/hint', { question, dimension }),
 }
 
 // ===== Diagnostic API (P1 统一抽象) =====

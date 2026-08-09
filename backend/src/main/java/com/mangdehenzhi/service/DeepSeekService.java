@@ -270,6 +270,24 @@ public class DeepSeekService {
         return callDeepSeek(prompt);
     }
 
+    /**
+     * 面试/答题提示 — 卡壳时给出引导性提示（借鉴 ai_interview 的"智能提示"体验）
+     */
+    public String generateInterviewHint(String question, String dimension) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是面试教练。面试者面对以下问题时卡壳了，请给出引导性提示帮助他继续回答（不要直接给完整答案）：
+            - 先点出这道题在考察什么
+            - 给一个思考框架或切入点
+            - 提示一个可以参考的例子方向
+            返回 JSON（不要 markdown 包裹）：
+            {"whatItsTesting": "这道题在考察什么", "thinkingFramework": "思考框架", "exampleDirection": "参考方向"}
+            测评维度: %s
+            问题: %s
+            """, dimension, question);
+        return callDeepSeek(prompt);
+    }
+
     public boolean isEnabled() {
         return enabled;
     }

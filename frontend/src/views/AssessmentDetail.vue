@@ -87,6 +87,29 @@
                 <span class="option-label">{{ opt.label }}</span>
               </div>
             </div>
+
+            <!-- AI 答题提示（卡壳时获取引导） -->
+            <div class="hint-area">
+              <el-button text type="primary" size="small" :loading="hintLoading" @click="getHint" :disabled="hintLoading">
+                <el-icon><magic-stick /></el-icon> 卡壳了？获取 AI 提示
+              </el-button>
+              <transition name="fade">
+                <div v-if="hintText" class="hint-content">
+                  <template v-if="parsedHint">
+                    <div v-if="parsedHint.whatItsTesting" class="hint-line">
+                      <span class="hint-label">🎯 考察点：</span>{{ parsedHint.whatItsTesting }}
+                    </div>
+                    <div v-if="parsedHint.thinkingFramework" class="hint-line">
+                      <span class="hint-label">💡 思路框架：</span>{{ parsedHint.thinkingFramework }}
+                    </div>
+                    <div v-if="parsedHint.exampleDirection" class="hint-line">
+                      <span class="hint-label">📌 参考方向：</span>{{ parsedHint.exampleDirection }}
+                    </div>
+                  </template>
+                  <div v-else class="hint-line">{{ hintText }}</div>
+                </div>
+              </transition>
+            </div>
           </div>
         </transition>
 
@@ -146,7 +169,7 @@
 import { ref, computed, onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { assessmentApi } from '@/api'
+import { assessmentApi, aiApi } from '@/api'
 import { questionBank, calculateAllScores, calculateTotalScore } from '@/data/questions'
 import AppHeader from '@/components/AppHeader.vue'
 import type { Assessment, QuestionGroup } from '@/types'
@@ -160,6 +183,15 @@ const currentIndex = ref(0)
 const answers = reactive<Record<string, number>>({})
 const submitting = ref(false)
 const showConfirm = ref(false)
+const hintLoading = ref(false)
+const hintText = ref('')
+
+const parsedHint = computed(() => {
+  if (!hintText.value) return null
+  try {
+    return JSON.parse(hintText.value)
+  } catch { return null }
+})
 
 // 按维度分组题目
 const questionGroups = computed<QuestionGroup[]>(() => {
@@ -276,6 +308,20 @@ function updateGroupIndex() {
 
 function confirmSubmit() {
   showConfirm.value = true
+}
+
+async function getHint() {
+  const q = currentQuestion.value
+  if (!q) return
+  hintLoading.value = true
+  try {
+    const res = await aiApi.hint(q.text, currentGroup.value?.label || '')
+    hintText.value = res.data
+  } catch (_) {
+    ElMessage.warning('AI 提示暂不可用，请稍后再试')
+  } finally {
+    hintLoading.value = false
+  }
 }
 
 async function doSubmit() {

@@ -49,4 +49,24 @@ public class AiChatController {
 
         return ResponseEntity.ok(ApiResponse.success(reply));
     }
+
+    /**
+     * 面试/答题提示端点 — 卡壳时给出引导性提示
+     */
+    @PostMapping("/hint")
+    public ResponseEntity<ApiResponse<String>> getHint(
+            @AuthenticationPrincipal User user,
+            @RequestBody HintRequest request) {
+
+        String hint = deepSeekService.generateInterviewHint(request.question(), request.dimension());
+
+        if (hint == null) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(ApiResponse.error(503, 1000, "AI 提示服务暂时不可用，请稍后再试"));
+        }
+
+        return ResponseEntity.ok(ApiResponse.success(hint));
+    }
+
+    public record HintRequest(String question, String dimension) {}
 }
