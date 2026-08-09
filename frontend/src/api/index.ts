@@ -214,3 +214,10 @@ export const recruitmentApi = {
   translateJd: (jobTitle: string, jobDescription: string) =>
     http.post<any, ApiResponse<string>>('/recruitment/translate-jd', { jobTitle, jobDescription }),
 }
+
+// ===== Gamification API =====
+export const gamificationApi = {
+  getMySummary: () => http.get<any, ApiResponse<any>>('/gamification/me'),
+  addXp: (eventType: string) =>
+    http.post<any, ApiResponse<any>>('/gamification/xp', { eventType }),
+}

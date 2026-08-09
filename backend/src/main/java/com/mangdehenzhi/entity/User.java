@@ -58,6 +58,16 @@ public class User {
     @Builder.Default
     private Boolean credentialsNonExpired = true;
 
+    // ===== 游戏化字段 =====
+    @Builder.Default
+    private Integer xp = 0;             // 累计经验值
+
+    @Builder.Default
+    private Integer level = 1;          // 等级（1-10）
+
+    @Column(columnDefinition = "TEXT")
+    private String achievements;        // 已解锁成就 ID 列表（JSON数组）
+
     private LocalDateTime lastLoginTime;
 
     private LocalDateTime createdAt;

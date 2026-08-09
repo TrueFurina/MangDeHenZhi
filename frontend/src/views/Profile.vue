@@ -38,6 +38,11 @@
           </el-form>
         </div>
       </div>
+
+      <!-- 游戏化面板：等级 / XP / 成就 -->
+      <div class="glass-card" style="margin-top:24px">
+        <GamificationPanel />
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +53,7 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
 import { userApi } from '@/api'
 import AppHeader from '@/components/AppHeader.vue'
+import GamificationPanel from '@/components/GamificationPanel.vue'
 
 const userStore = useUserStore()
 const formRef = ref()
