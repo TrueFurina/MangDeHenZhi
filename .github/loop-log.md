@@ -29,3 +29,6 @@
 | 2026-08-09 | 新鲜验证-前端 | ✅ 通过 | vue-tsc 0 errors, vite build 9.33s | 类型检查+构建真实通过 |
 | 2026-08-09 | 验证固化 | ✅ 通过 | docs/verification.md 更新 | 新鲜验证快照已记录 |
 | 2026-08-09 | 推送状态 | ⏳ 待网络恢复 | git push EXIT=128 | github.com 443 无法连接（外部阻断），已验证 commit 在本地 |
+| 2026-08-09 | 成就事件驱动 | ✅ 通过 | mvn compile | addXp 按事件真实解锁成就（测评→初次测评/通过考核，证书→首次认证） |
+| 2026-08-09 | 新鲜验证 | ✅ 通过 | mvn test BUILD SUCCESS, vue-tsc 0, build 10.14s | 成就事件驱动功能全绿 |
+| 2026-08-09 | 推送尝试 | ⏳ 网络间歇 | push 曾返 rejected(fetch first) | 网络间歇性可通，曾瞬间连上 GitHub，最终 push 未成功 |
