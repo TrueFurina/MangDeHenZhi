@@ -67,8 +67,30 @@ public class GamificationService {
         boolean leveledUp = newLevel > user.getLevel();
         user.setLevel(newLevel);
 
-        // 成就判定
+        // 成就判定（事件驱动真实解锁）
         List<String> unlocked = getUnlockedAchievements(user);
+        boolean newAchievement = false;
+
+        // 1) 事件对应成就
+        String eventAchievement = achievementForEvent(eventType);
+        if (eventAchievement != null && !unlocked.contains(eventAchievement)) {
+            unlocked.add(eventAchievement);
+            newAchievement = true;
+        }
+        // 2) XP/等级条件成就
+        if (user.getXp() >= 1000 && !unlocked.contains("xp_1000")) {
+            unlocked.add("xp_1000");
+            newAchievement = true;
+        }
+        if (newLevel >= 5 && !unlocked.contains("level_5")) {
+            unlocked.add("level_5");
+            newAchievement = true;
+        }
+        if (newLevel >= MAX_LEVEL && !unlocked.contains("level_10")) {
+            unlocked.add("level_10");
+            newAchievement = true;
+        }
+
         try {
             user.setAchievements(objectMapper.writeValueAsString(unlocked));
         } catch (Exception e) {
@@ -80,7 +102,20 @@ public class GamificationService {
         if (leveledUp) {
             log.info("用户 {} 升级到 Lv.{}（XP={}）", userId, newLevel, user.getXp());
         }
+        if (newAchievement) {
+            log.info("用户 {} 解锁新成就: {}", userId, unlocked);
+        }
         return user;
+    }
+
+    /** 事件 → 成就映射 */
+    private String achievementForEvent(String eventType) {
+        return switch (eventType) {
+            case "ASSESSMENT_COMPLETE" -> "first_assessment";
+            case "ASSESSMENT_PASSED" -> "passed_exam";
+            case "CERTIFICATE_ISSUED" -> "certificate";
+            default -> null;
+        };
     }
 
     /** 事件对应的 XP 值 */
