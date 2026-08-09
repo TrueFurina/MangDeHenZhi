@@ -25,3 +25,7 @@
 | 2026-08-09 | XP接入-证书 | ✅ 通过 | mvn compile | 证书签发自动 +100 XP（修复缺注入） |
 | 2026-08-09 | XP接入-登录 | ✅ 通过 | vue-tsc 0 错误 | 前端登录成功上报 LOGIN XP |
 | 2026-08-09 | 循环验证 | ✅ 通过 | mvn test BUILD SUCCESS, vite build 9.23s | 游戏化 XP 全链路打通 |
+| 2026-08-09 | 新鲜验证-后端 | ✅ 通过 | mvn test BUILD SUCCESS（35/35） | 全量测试真实通过 |
+| 2026-08-09 | 新鲜验证-前端 | ✅ 通过 | vue-tsc 0 errors, vite build 9.33s | 类型检查+构建真实通过 |
+| 2026-08-09 | 验证固化 | ✅ 通过 | docs/verification.md 更新 | 新鲜验证快照已记录 |
+| 2026-08-09 | 推送状态 | ⏳ 待网络恢复 | git push EXIT=128 | github.com 443 无法连接（外部阻断），已验证 commit 在本地 |
