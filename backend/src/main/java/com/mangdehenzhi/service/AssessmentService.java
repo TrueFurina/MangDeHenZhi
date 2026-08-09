@@ -30,6 +30,7 @@ public class AssessmentService {
     private final CertificationService certificationService;
     private final UserRepository userRepository;
     private final AIService aiService;
+    private final GamificationService gamificationService;
 
     public List<Assessment> getAllAssessments() {
         return assessmentRepository.findAll();
@@ -95,6 +96,13 @@ public class AssessmentService {
                 .completedAt(LocalDateTime.now())
                 .build();
         result = resultRepository.save(result);
+
+        // 游戏化：测评完成自动累计 XP
+        try {
+            gamificationService.addXp(userId, passed ? "ASSESSMENT_PASSED" : "ASSESSMENT_COMPLETE");
+        } catch (Exception e) {
+            log.warn("测评 XP 累计失败（不影响结果）: {}", e.getMessage());
+        }
 
         // 自动签发证书（如果通过）
         if (passed) {

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { authApi } from '@/api'
+import { authApi, gamificationApi } from '@/api'
 import { safeLocalStorage } from '@/utils/storage'
 import type { User } from '@/types'
 
@@ -32,6 +32,8 @@ export const useUserStore = defineStore('user', () => {
     currentUser.value = res.data.user
     safeLocalStorage.setItem('token', res.data.token)
     safeLocalStorage.setItem('user', JSON.stringify(res.data.user))
+    // 游戏化：登录成功上报 XP（静默失败，不影响登录）
+    gamificationApi.addXp('LOGIN').catch(() => {})
     return res.data
   }
 

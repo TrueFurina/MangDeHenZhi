@@ -26,6 +26,7 @@ public class CertificationService {
 
     private final CertificationRepository certificationRepository;
     private final BlockchainService blockchainService;
+    private final GamificationService gamificationService;
 
     public Certification issueCertification(User user, AssessmentResult assessmentResult) {
         // 生成唯一证书哈希
@@ -51,7 +52,16 @@ public class CertificationService {
             log.warn("证书上链失败（不影响签发）: {}", e.getMessage());
         }
 
-        return certificationRepository.save(certification);
+        Certification saved = certificationRepository.save(certification);
+
+        // 游戏化：证书签发自动累计 XP
+        try {
+            gamificationService.addXp(user.getId(), "CERTIFICATE_ISSUED");
+        } catch (Exception e) {
+            log.warn("证书 XP 累计失败（不影响签发）: {}", e.getMessage());
+        }
+
+        return saved;
     }
 
     public Certification verifyCertification(String certHash) {

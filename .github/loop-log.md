@@ -20,3 +20,8 @@
 | 2026-08-09 | 求职仪表盘-A3 | ✅ 通过 | vue-tsc 0 错误 | MyApplications 仪表盘（总投递/进行中/面试/录用/未通过） |
 | 2026-08-09 | 循环验证 | ✅ 通过 | mvn test BUILD SUCCESS, vite build 9.04s | 求职仪表盘功能全绿 |
 | 2026-08-09 | 循环收口-推送 | ⏳ 待网络恢复 | git push 超时 | 网络仍无法连接 GitHub，commit 在本地待推送 |
+| 2026-08-09 | 验证固化 | ✅ 通过 | mvn test BUILD SUCCESS | docs/verification.md 固化验证证据 |
+| 2026-08-09 | XP接入-测评 | ✅ 通过 | mvn compile | 测评完成自动 +50/+70 XP |
+| 2026-08-09 | XP接入-证书 | ✅ 通过 | mvn compile | 证书签发自动 +100 XP（修复缺注入） |
+| 2026-08-09 | XP接入-登录 | ✅ 通过 | vue-tsc 0 错误 | 前端登录成功上报 LOGIN XP |
+| 2026-08-09 | 循环验证 | ✅ 通过 | mvn test BUILD SUCCESS, vite build 9.23s | 游戏化 XP 全链路打通 |
