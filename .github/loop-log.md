@@ -33,3 +33,8 @@
 | 2026-08-09 | 新鲜验证 | ✅ 通过 | mvn test BUILD SUCCESS, vue-tsc 0, build 10.14s | 成就事件驱动功能全绿 |
 | 2026-08-09 | 推送尝试 | ⏳ 网络间歇 | push 曾返 rejected(fetch first) | 网络间歇性可通，曾瞬间连上 GitHub，最终 push 未成功 |
 | 2026-08-09 | 推送重试脚本 | ✅ 脚本已执行 | 3 次尝试均失败 | scripts/git-push-retry.sh 执行，网络仍不通（含 DNS 解析失败），commit 在本地待推送 |
+| 2026-08-09 | 推送闭环 | ✅ 成功 | git push 19b2dca..ac3ac02 | 重试脚本第4次抓住连通窗口，全部积压 commit 推送成功，Everything up-to-date |
+| 2026-08-09 | 框架证据 | ✅ 已入库 | git ls-files | AUTOLOOP.md/loop-log.md/verification.md/git-push-retry.sh 均在仓库 |
+| 2026-08-09 | 技能匹配-A1 | ✅ 通过 | mvn compile | SkillTaxonomy（8维分类+别名/相邻映射+exact/alias/adjacent/parent打分） |
+| 2026-08-09 | 技能匹配-A2 | ✅ 通过 | SkillTaxonomyTest 8/8 | 单元测试发现1个用例bug→修复→全绿（写码→测试→修bug循环） |
+| 2026-08-09 | 全量验证 | ✅ 通过 | mvn test BUILD SUCCESS, vue-tsc 0, build 9.81s | 技能匹配引擎全绿 |
