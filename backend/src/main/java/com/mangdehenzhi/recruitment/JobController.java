@@ -143,6 +143,34 @@ public class JobController {
         return ResponseEntity.ok(ApiResponse.success(applicationRepository.findByUserId(user.getId())));
     }
 
+    /**
+     * 求职仪表盘统计 — 按状态统计投递数
+     */
+    @GetMapping("/applications/stats")
+    public ResponseEntity<ApiResponse<Map<String, Object>>> getApplicationStats(
+            @AuthenticationPrincipal User user) {
+        List<Application> apps = applicationRepository.findByUserId(user.getId());
+
+        Map<String, Long> byStatus = apps.stream()
+                .collect(java.util.stream.Collectors.groupingBy(
+                        Application::getStatus, java.util.stream.Collectors.counting()));
+
+        long total = apps.size();
+        long inProgress = byStatus.getOrDefault("SUBMITTED", 0L) + byStatus.getOrDefault("DRAFT", 0L);
+        long interviewed = byStatus.getOrDefault("INTERVIEWED", 0L);
+        long accepted = byStatus.getOrDefault("ACCEPTED", 0L);
+        long rejected = byStatus.getOrDefault("REJECTED", 0L);
+
+        Map<String, Object> stats = new java.util.LinkedHashMap<>();
+        stats.put("total", total);
+        stats.put("inProgress", inProgress);
+        stats.put("interviewed", interviewed);
+        stats.put("accepted", accepted);
+        stats.put("rejected", rejected);
+        stats.put("byStatus", byStatus);
+        return ResponseEntity.ok(ApiResponse.success(stats));
+    }
+
     @PutMapping("/applications/{id}/status")
     public ResponseEntity<ApiResponse<Application>> updateApplicationStatus(
             @AuthenticationPrincipal User user,

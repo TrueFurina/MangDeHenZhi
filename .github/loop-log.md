@@ -15,3 +15,8 @@
 | 2026-08-09 | 面试提示-A2 | ✅ 通过 | mvn compile | AiChatController /api/ai/hint 端点 |
 | 2026-08-09 | 面试提示-A3 | ✅ 通过 | vue-tsc 0 错误 | aiApi.hint + 测评答题页"卡壳了？获取 AI 提示" |
 | 2026-08-09 | 循环验证 | ✅ 通过 | mvn test 35/35, vite build | 多智能体面试官提示功能全绿 |
+| 2026-08-09 | 求职仪表盘-A1 | ✅ 通过 | mvn compile | JobController.getApplicationStats 求职统计 API |
+| 2026-08-09 | 求职仪表盘-A2 | ✅ 通过 | vue-tsc 0 错误 | recruitmentApi.getApplicationStats |
+| 2026-08-09 | 求职仪表盘-A3 | ✅ 通过 | vue-tsc 0 错误 | MyApplications 仪表盘（总投递/进行中/面试/录用/未通过） |
+| 2026-08-09 | 循环验证 | ✅ 通过 | mvn test BUILD SUCCESS, vite build 9.04s | 求职仪表盘功能全绿 |
+| 2026-08-09 | 循环收口-推送 | ⏳ 待网络恢复 | git push 超时 | 网络仍无法连接 GitHub，commit 在本地待推送 |

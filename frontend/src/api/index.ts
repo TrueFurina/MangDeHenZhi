@@ -207,6 +207,9 @@ export const recruitmentApi = {
   createApplication: (jobId: number) =>
     http.post<any, ApiResponse<Application>>('/recruitment/applications', { jobId }),
   getMyApplications: () => http.get<any, ApiResponse<Application[]>>('/recruitment/applications'),
+  // 求职仪表盘统计
+  getApplicationStats: () =>
+    http.get<any, ApiResponse<any>>('/recruitment/applications/stats'),
   updateApplicationStatus: (id: number, status: string) =>
     http.put<any, ApiResponse<Application>>(`/recruitment/applications/${id}/status`, { status }),
   getSuggestions: (id: number, data: { jobDescription: string; skillScores: Record<string, number>; formFields: string[] }) =>
