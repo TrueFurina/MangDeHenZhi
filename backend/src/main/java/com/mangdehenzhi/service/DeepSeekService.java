@@ -288,6 +288,34 @@ public class DeepSeekService {
         return callDeepSeek(prompt);
     }
 
+    /**
+     * 生成模拟面试题（借鉴 ai_interview 多智能体面试官）
+     */
+    public String generateInterviewQuestions(String jobTitle, String dimension, int count) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是面试官。为以下职位生成 %d 道面试题，覆盖行为面试和专业技能，返回 JSON（不要 markdown 包裹）：
+            {"questions": [{"question": "...", "dimension": "...", "expectedPoints": ["要点1", "要点2"]}]}
+            职位: %s
+            测评维度: %s
+            """, count, jobTitle, dimension);
+        return callDeepSeek(prompt);
+    }
+
+    /**
+     * 评估面试回答（多智能体面试官的评分官角色）
+     */
+    public String evaluateInterviewAnswer(String question, String answer) {
+        if (!enabled) return null;
+        String prompt = String.format("""
+            你是面试评分官。评估面试者的回答，返回 JSON（不要 markdown 包裹）：
+            {"score": 0-100, "strengths": ["优点"], "weaknesses": ["不足"], "suggestion": "改进建议", "sampleBetterAnswer": "更好的回答方向"}
+            面试问题: %s
+            面试者回答: %s
+            """, question, answer);
+        return callDeepSeek(prompt);
+    }
+
     public boolean isEnabled() {
         return enabled;
     }

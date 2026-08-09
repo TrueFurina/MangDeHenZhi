@@ -150,6 +150,16 @@ export const aiApi = {
     http.post<any, ApiResponse<string>>('/ai/hint', { question, dimension }),
 }
 
+// ===== Interview API（AI 模拟面试） =====
+export const interviewApi = {
+  // 生成模拟面试题
+  generateQuestions: (jobTitle: string, dimension: string, count = 3) =>
+    http.post<any, ApiResponse<string>>('/interview/questions', { jobTitle, dimension, count }),
+  // 评估面试回答
+  evaluate: (question: string, answer: string) =>
+    http.post<any, ApiResponse<string>>('/interview/evaluate', { question, answer }),
+}
+
 // ===== Diagnostic API (P1 统一抽象) =====
 export const diagnosticApi = {
   start: () => http.get<any, ApiResponse<any>>('/diagnostic/start'),
