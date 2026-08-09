@@ -32,3 +32,4 @@
 | 2026-08-09 | 成就事件驱动 | ✅ 通过 | mvn compile | addXp 按事件真实解锁成就（测评→初次测评/通过考核，证书→首次认证） |
 | 2026-08-09 | 新鲜验证 | ✅ 通过 | mvn test BUILD SUCCESS, vue-tsc 0, build 10.14s | 成就事件驱动功能全绿 |
 | 2026-08-09 | 推送尝试 | ⏳ 网络间歇 | push 曾返 rejected(fetch first) | 网络间歇性可通，曾瞬间连上 GitHub，最终 push 未成功 |
+| 2026-08-09 | 推送重试脚本 | ✅ 脚本已执行 | 3 次尝试均失败 | scripts/git-push-retry.sh 执行，网络仍不通（含 DNS 解析失败），commit 在本地待推送 |
