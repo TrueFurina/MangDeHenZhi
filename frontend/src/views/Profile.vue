@@ -43,6 +43,12 @@
       <div class="glass-card" style="margin-top:24px">
         <GamificationPanel />
       </div>
+
+      <!-- 技能热力图：市场需求技能可视化 -->
+      <div class="glass-card" style="margin-top:24px">
+        <h3 class="heatmap-title">🔥 技能热力图</h3>
+        <SkillHeatmap />
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +60,7 @@ import { useUserStore } from '@/stores/user'
 import { userApi } from '@/api'
 import AppHeader from '@/components/AppHeader.vue'
 import GamificationPanel from '@/components/GamificationPanel.vue'
+import SkillHeatmap from '@/components/SkillHeatmap.vue'
 
 const userStore = useUserStore()
 const formRef = ref()
