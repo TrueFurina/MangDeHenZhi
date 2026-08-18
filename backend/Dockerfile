@@ -5,9 +5,10 @@
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# 先复制 pom.xml 和本地仓库，利用 Docker 缓存加速依赖下载
+# 先复制 pom.xml，利用 Docker 缓存加速依赖下载
+# 注：不复制 .mvn —— 仓库未提交 Maven Wrapper（且 .dockerignore 已排除），
+# 镜像内直接使用基础镜像自带的 mvn，无需 wrapper 配置。
 COPY pom.xml ./
-COPY .mvn .mvn
 RUN mvn dependency:go-offline -B || true
 
 # 复制源码并编译打包
