@@ -11,6 +11,9 @@ services:
     image: mysql:8.0
     container_name: mangdehenzhi-db
     restart: unless-stopped
+    # 挂载的 mysql_binlogs 命名卷初始属主为 root，mysql 进程（uid 999）写 binlog 会 Permission denied 而崩溃。
+    # 启动前先建目录并改属主，确保 log-bin 可写（不影响数据卷）。
+    command: ["sh","-c","mkdir -p /var/log/mysql && chown -R mysql:mysql /var/log/mysql && exec docker-entrypoint.sh mysqld --log-error=/dev/stdout --log-error-verbosity=3"]
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme_root}  # 生产必须由 .env 覆盖为强随机口令（openssl rand -base64 24）
       MYSQL_DATABASE: mangdehenzhi
@@ -50,7 +53,7 @@ services:
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       MYSQL_HOST: db
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 必须从 .env 提供强随机口令，缺失则启动失败
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme_app}  # 生产必须由 .env 覆盖为强随机口令
     deploy:
       resources:
         limits:
@@ -105,8 +108,8 @@ services:
     environment:
       MYSQL_HOST: db
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme_app}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme_root}
       MYSQL_DATABASE: mangdehenzhi
       BACKUP_DIR: /backups
       RETENTION_DAYS: 7
