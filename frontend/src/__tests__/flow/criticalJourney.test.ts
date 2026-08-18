@@ -14,20 +14,25 @@ const loginMock = vi.fn()
 const submitMock = vi.fn()
 const verifyMock = vi.fn()
 
-// 显式声明被测链路用到的 API 分组；其余分组（如 gamificationApi，
-// useUserStore 会透传导入）用「方法即 vi.fn」的代理兜底，避免 mock 缺字段抛错。
+// 显式声明被测链路用到的 API 分组；其余分组（如 gamificationApi，useUserStore
+// 会透传导入）用「方法即 ()=>Promise.resolve() 的 vi.fn」代理兜底，并拦截 has /
+// ownKeys / getOwnPropertyDescriptor，使任何未显式声明的 export 也「存在」，
+// 避免 vitest 报 "No 'xxxApi' export is defined on the '@/api' mock"。
 vi.mock('@/api', () => {
-  const apiProxy = () => new Proxy({}, { get: () => vi.fn() })
+  const fnProxy = () => new Proxy({}, { get: () => vi.fn(() => Promise.resolve()) })
   const explicit: Record<string, unknown> = {
     authApi: { login: (...a: any[]) => loginMock(...a) },
     assessmentApi: { submit: (...a: any[]) => submitMock(...a) },
     certificationApi: { verify: (...a: any[]) => verifyMock(...a) },
   }
   return new Proxy(explicit, {
-    get: (_target, prop: string | symbol) => {
-      if (prop in explicit) return explicit[prop as string]
-      return apiProxy()
-    },
+    get: (_t, prop: string | symbol) => (prop in explicit ? explicit[prop as string] : fnProxy()),
+    has: () => true,
+    ownKeys: () => [...Object.keys(explicit)],
+    getOwnPropertyDescriptor: (_t, prop: string | symbol) =>
+      prop in explicit
+        ? Object.getOwnPropertyDescriptor(explicit, prop)
+        : { configurable: true, enumerable: true, value: fnProxy(), writable: false },
   })
 })
 
