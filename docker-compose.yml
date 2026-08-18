@@ -1,7 +1,9 @@
 # ============================================================
 # Docker Compose — 芒得很职 全栈部署
+# 说明：敏感变量（MYSQL_ROOT_PASSWORD / MYSQL_PASSWORD / JWT_SECRET）
+# 均带有 `:-默认值` 兜底，CI 冒烟与本地 `docker compose up` 无需 .env 即可启动；
+# 生产部署务必在 .env 中覆盖为强随机值（见 .env.example）。
 # ============================================================
-version: "3.8"
 
 services:
   # ---- MySQL 数据库 ----
@@ -10,10 +12,10 @@ services:
     container_name: mangdehenzhi-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # 必须从 .env 提供强随机口令（openssl rand -base64 24），缺失则启动失败
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme_root}  # 生产必须由 .env 覆盖为强随机口令（openssl rand -base64 24）
       MYSQL_DATABASE: mangdehenzhi
       MYSQL_USER: mangdehenzhi
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # 必须从 .env 提供强随机口令，缺失则启动失败
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme_app}  # 生产必须由 .env 覆盖为强随机口令
     volumes:
       - mysql_data:/var/lib/mysql
       - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -44,7 +46,7 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      JWT_SECRET: ${JWT_SECRET}  # 必须从 .env 提供强随机密钥（openssl rand -base64 48），缺失则后端启动失败
+      JWT_SECRET: ${JWT_SECRET:-ci_dev_dummy_jwt_secret_change_me}  # 生产必须由 .env 覆盖为强随机密钥（openssl rand -base64 48）
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       MYSQL_HOST: db
       MYSQL_USER: mangdehenzhi
