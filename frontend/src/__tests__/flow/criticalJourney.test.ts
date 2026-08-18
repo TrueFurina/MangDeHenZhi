@@ -14,11 +14,22 @@ const loginMock = vi.fn()
 const submitMock = vi.fn()
 const verifyMock = vi.fn()
 
-vi.mock('@/api', () => ({
-  authApi: { login: (...a: any[]) => loginMock(...a) },
-  assessmentApi: { submit: (...a: any[]) => submitMock(...a) },
-  certificationApi: { verify: (...a: any[]) => verifyMock(...a) },
-}))
+// 显式声明被测链路用到的 API 分组；其余分组（如 gamificationApi，
+// useUserStore 会透传导入）用「方法即 vi.fn」的代理兜底，避免 mock 缺字段抛错。
+vi.mock('@/api', () => {
+  const apiProxy = () => new Proxy({}, { get: () => vi.fn() })
+  const explicit: Record<string, unknown> = {
+    authApi: { login: (...a: any[]) => loginMock(...a) },
+    assessmentApi: { submit: (...a: any[]) => submitMock(...a) },
+    certificationApi: { verify: (...a: any[]) => verifyMock(...a) },
+  }
+  return new Proxy(explicit, {
+    get: (_target, prop: string | symbol) => {
+      if (prop in explicit) return explicit[prop as string]
+      return apiProxy()
+    },
+  })
+})
 
 import { useUserStore } from '@/stores/user'
 
