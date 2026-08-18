@@ -2,7 +2,8 @@
 # 启用二进制日志，为 PITR（时间点恢复）提供基础
 # 注意：必须设置 server-id，否则 log-bin 无法在独立实例上启用
 server-id=1
-log-bin=/var/log/mysql/mysql-bin
+# binlog 写入数据目录（MySQL 属主 /var/lib/mysql），避免挂载卷权限问题导致 mysqld 启动崩溃
+log-bin=/var/lib/mysql/mysql-bin
 binlog-format=ROW
 # binlog 保留 7 天（604800 秒），避免无限膨胀
 binlog_expire_logs_seconds=604800
