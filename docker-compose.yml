@@ -110,9 +110,13 @@ services:
       BACKUP_DIR: /backups
       RETENTION_DAYS: 7
       TZ: Asia/Shanghai
+      # 让 backup 容器能读到 db 数据卷里的 binlog（PITR 归档）
+      BINLOG_DIR: /var/lib/mysql
     volumes:
       - ./scripts/backup.sh:/backup.sh:ro
       - mysql_backups:/backups
+      # 只读挂载 db 数据卷，供 backup.sh 归档 mysql-bin.*（不写，杜绝误改主数据）
+      - mysql_data:/var/lib/mysql:ro
     entrypoint: ["/bin/sh", "-c", "sh /backup.sh && while true; do sleep 86400; sh /backup.sh; done"]
 
 volumes:
