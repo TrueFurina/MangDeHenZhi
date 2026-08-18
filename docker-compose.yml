@@ -11,9 +11,6 @@ services:
     image: mysql:8.0
     container_name: mangdehenzhi-db
     restart: unless-stopped
-    # 挂载的 mysql_binlogs 命名卷初始属主为 root，mysql 进程（uid 999）写 binlog 会 Permission denied 而崩溃。
-    # 启动前先建目录并改属主，确保 log-bin 可写（不影响数据卷）。
-    command: ["sh","-c","mkdir -p /var/log/mysql && chown -R mysql:mysql /var/log/mysql && exec docker-entrypoint.sh mysqld --log-error=/dev/stdout --log-error-verbosity=3"]
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme_root}  # 生产必须由 .env 覆盖为强随机口令（openssl rand -base64 24）
       MYSQL_DATABASE: mangdehenzhi
@@ -23,7 +20,6 @@ services:
       - mysql_data:/var/lib/mysql
       - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./mysql/conf.d:/etc/mysql/conf.d:ro        # 开启 binlog（PITR 基础）
-      - mysql_binlogs:/var/log/mysql               # binlog 独立于数据卷，便于 PITR
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -117,10 +113,8 @@ services:
     volumes:
       - ./scripts/backup.sh:/backup.sh:ro
       - mysql_backups:/backups
-      - mysql_binlogs:/var/log/mysql:ro
     entrypoint: ["/bin/sh", "-c", "sh /backup.sh && while true; do sleep 86400; sh /backup.sh; done"]
 
 volumes:
   mysql_data:
-  mysql_binlogs:
   mysql_backups:
