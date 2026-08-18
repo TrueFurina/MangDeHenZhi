@@ -1,0 +1,699 @@
+snapshot_date,category,skill,skill_group,listing_count,total_listings,demand_pct,required_count
+2026-07-21,data,SQL,Language,806,7177,11.2,799
+2026-07-21,data,Python,Language,671,7177,9.3,654
+2026-07-21,data,Machine Learning,Skill,493,7177,6.9,488
+2026-07-21,data,Stakeholder Mgmt,Soft Skill,404,7177,5.6,399
+2026-07-21,data,AWS,Cloud,289,7177,4.0,276
+2026-07-21,data,ETL,Skill,263,7177,3.7,257
+2026-07-21,data,Statistical Analysis,Skill,252,7177,3.5,244
+2026-07-21,data,Power BI,BI,238,7177,3.3,234
+2026-07-21,data,Data Modeling,Skill,232,7177,3.2,224
+2026-07-21,data,Databricks,Platform,225,7177,3.1,214
+2026-07-21,data,Snowflake,Warehouse,217,7177,3.0,207
+2026-07-21,data,Azure,Cloud,218,7177,3.0,215
+2026-07-21,data,Spark,Processing,206,7177,2.9,195
+2026-07-21,data,LLMs / GenAI,Skill,168,7177,2.3,164
+2026-07-21,data,A/B Testing,Skill,161,7177,2.2,153
+2026-07-21,data,Excel,Tool,137,7177,1.9,132
+2026-07-21,data,Tableau,BI,129,7177,1.8,120
+2026-07-21,data,dbt,Transform,124,7177,1.7,107
+2026-07-21,data,Agile / Scrum,Methodology,121,7177,1.7,118
+2026-07-21,data,Airflow,Orchestrator,98,7177,1.4,78
+2026-07-21,data,GCP,Cloud,103,7177,1.4,99
+2026-07-21,data,Java,Language,78,7177,1.1,78
+2026-07-21,data,Git,Tool,79,7177,1.1,75
+2026-07-21,data,AI Agents,Technique,70,7177,1.0,70
+2026-07-21,data,CI/CD,Pipeline,72,7177,1.0,69
+2026-07-21,data,Looker,BI,66,7177,0.9,57
+2026-07-21,data,NLP,Skill,62,7177,0.9,60
+2026-07-21,data,BigQuery,Warehouse,65,7177,0.9,57
+2026-07-21,data,Data Pipeline,Skill,57,7177,0.8,51
+2026-07-21,data,Data Visualization,Skill,56,7177,0.8,54
+2026-07-21,data,Kafka,Streaming,50,7177,0.7,41
+2026-07-21,data,Scala,Language,50,7177,0.7,45
+2026-07-21,data,Pandas,Library,41,7177,0.6,40
+2026-07-21,data,Redshift,Warehouse,42,7177,0.6,41
+2026-07-21,data,Kubernetes,Orchestration,41,7177,0.6,30
+2026-07-21,data,Terraform,IaC,40,7177,0.6,33
+2026-07-21,data,Docker,DevOps,34,7177,0.5,26
+2026-07-21,data,Salesforce,Platform,33,7177,0.5,29
+2026-07-21,data,Microsoft Fabric,Platform,28,7177,0.4,28
+2026-07-21,data,RAG,Technique,32,7177,0.4,30
+2026-07-21,data,PostgreSQL,Database,29,7177,0.4,29
+2026-07-21,data,AWS Security,Cloud,18,7177,0.3,15
+2026-07-21,data,Deep Learning,Skill,21,7177,0.3,21
+2026-07-21,data,PyTorch,Framework,22,7177,0.3,22
+2026-07-21,data,Prototyping,Skill,24,7177,0.3,23
+2026-07-21,data,Flink,Streaming,21,7177,0.3,17
+2026-07-21,data,NumPy,Library,23,7177,0.3,23
+2026-07-21,data,Jira,Tool,20,7177,0.3,19
+2026-07-21,data,Linux,OS,19,7177,0.3,15
+2026-07-21,data,scikit-learn,Library,25,7177,0.3,25
+2026-07-21,data,Elasticsearch,Database,17,7177,0.2,14
+2026-07-21,data,Segment,Analytics,16,7177,0.2,14
+2026-07-21,data,Workday,Platform,14,7177,0.2,14
+2026-07-21,data,Informatica,Tool,11,7177,0.2,11
+2026-07-21,data,MySQL,Database,16,7177,0.2,16
+2026-07-21,data,JavaScript,Language,12,7177,0.2,11
+2026-07-21,data,System Design,Skill,11,7177,0.2,11
+2026-07-21,data,AI Coding Tools,Tool,14,7177,0.2,13
+2026-07-21,data,Trino,Query Engine,13,7177,0.2,12
+2026-07-21,data,MongoDB,Database,12,7177,0.2,12
+2026-07-21,data,SageMaker,MLOps,11,7177,0.2,7
+2026-07-21,data,MLflow,MLOps,15,7177,0.2,14
+2026-07-21,data,Dagster,Orchestrator,14,7177,0.2,13
+2026-07-21,data,SAP,Platform,11,7177,0.2,11
+2026-07-21,data,Fivetran,Tool,14,7177,0.2,13
+2026-07-21,data,Apache Iceberg,Table Format,17,7177,0.2,14
+2026-07-21,data,TensorFlow,Framework,17,7177,0.2,17
+2026-07-21,data,C#,Language,9,7177,0.1,9
+2026-07-21,data,Airbyte,Tool,5,7177,0.1,4
+2026-07-21,data,Amplitude,Analytics,9,7177,0.1,8
+2026-07-21,data,C++,Language,10,7177,0.1,10
+2026-07-21,data,ClickHouse,Database,10,7177,0.1,10
+2026-07-21,data,Data Observability,Skill,10,7177,0.1,7
+2026-07-21,data,Datadog,Monitoring,8,7177,0.1,8
+2026-07-21,data,Dynamics 365,Platform,7,7177,0.1,7
+2026-07-21,data,DynamoDB,Database,10,7177,0.1,10
+2026-07-21,data,Figma,Design,7,7177,0.1,7
+2026-07-21,data,Fine-tuning,Technique,8,7177,0.1,8
+2026-07-21,data,Go,Language,4,7177,0.1,4
+2026-07-21,data,Google Analytics,Analytics,8,7177,0.1,7
+2026-07-21,data,Grafana,Monitoring,10,7177,0.1,7
+2026-07-21,data,GraphQL,API,5,7177,0.1,5
+2026-07-21,data,Hugging Face,Library,7,7177,0.1,7
+2026-07-21,data,Incident Response,Skill,4,7177,0.1,4
+2026-07-21,data,Jupyter,Tool,5,7177,0.1,5
+2026-07-21,data,Kotlin,Language,7,7177,0.1,7
+2026-07-21,data,LangChain,Framework,4,7177,0.1,4
+2026-07-21,data,Linear,Tool,4,7177,0.1,4
+2026-07-21,data,Mixpanel,Analytics,5,7177,0.1,5
+2026-07-21,data,NetSuite,Platform,6,7177,0.1,5
+2026-07-21,data,Node.js,Runtime,10,7177,0.1,10
+2026-07-21,data,Polars,Library,4,7177,0.1,3
+2026-07-21,data,Prefect,Orchestrator,7,7177,0.1,7
+2026-07-21,data,Prompt Engineering,Skill,4,7177,0.1,3
+2026-07-21,data,React,Framework,8,7177,0.1,7
+2026-07-21,data,Rust,Language,5,7177,0.1,5
+2026-07-21,data,SAS,Language,8,7177,0.1,8
+2026-07-21,data,ServiceNow,Platform,6,7177,0.1,6
+2026-07-21,data,SIEM,Tool,6,7177,0.1,6
+2026-07-21,data,Superset,BI,5,7177,0.1,3
+2026-07-21,data,TypeScript,Language,10,7177,0.1,9
+2026-07-21,data,User Research,Skill,4,7177,0.1,4
+2026-07-21,data,Vector Databases,Database,6,7177,0.1,6
+2026-07-21,data,XGBoost,Library,3,7177,0.0,2
+2026-07-21,data,Oracle,Database,1,7177,0.0,1
+2026-07-21,data,Metabase,BI,2,7177,0.0,2
+2026-07-21,data,MCP,Protocol,3,7177,0.0,3
+2026-07-21,data,Zero Trust,Architecture,1,7177,0.0,1
+2026-07-21,data,Vue,Framework,1,7177,0.0,1
+2026-07-21,data,LLM APIs,API,2,7177,0.0,2
+2026-07-21,data,SOC 2,Compliance,1,7177,0.0,1
+2026-07-21,data,Helm,Orchestration,1,7177,0.0,1
+2026-07-21,data,Spring,Framework,2,7177,0.0,2
+2026-07-21,data,Flask,Framework,1,7177,0.0,1
+2026-07-21,data,SSIS,Tool,2,7177,0.0,2
+2026-07-21,data,FastAPI,Framework,2,7177,0.0,2
+2026-07-21,data,DuckDB,Database,1,7177,0.0,1
+2026-07-21,data,Streamlit,Framework,3,7177,0.0,3
+2026-07-21,data,Alteryx,Tool,1,7177,0.0,1
+2026-07-21,data,Swift,Language,1,7177,0.0,0
+2026-07-21,data,Django,Framework,1,7177,0.0,1
+2026-07-21,data,Cassandra,Database,1,7177,0.0,1
+2026-07-21,data,Talend,Tool,2,7177,0.0,2
+2026-07-21,data,Bash,Language,2,7177,0.0,2
+2026-07-21,data,Ansible,Config,1,7177,0.0,0
+2026-07-21,data,Angular,Framework,2,7177,0.0,2
+2026-07-21,data,Redis,Database,1,7177,0.0,1
+2026-07-21,data,R,Language,2,7177,0.0,2
+2026-07-21,data,REST API,API,3,7177,0.0,3
+2026-07-21,data,Ruby,Language,3,7177,0.0,3
+2026-07-21,data,Workflow Automation,Tool,2,7177,0.0,2
+2026-07-21,data,Qlik,BI,3,7177,0.0,3
+2026-07-21,data,Prometheus,Monitoring,3,7177,0.0,3
+2026-07-21,data,PHP,Language,1,7177,0.0,1
+2026-07-21,engineering,Java,Language,1073,10886,9.9,1053
+2026-07-21,engineering,Python,Language,1057,10886,9.7,1013
+2026-07-21,engineering,AWS,Cloud,989,10886,9.1,907
+2026-07-21,engineering,React,Framework,807,10886,7.4,765
+2026-07-21,engineering,Stakeholder Mgmt,Soft Skill,684,10886,6.3,659
+2026-07-21,engineering,LLMs / GenAI,Skill,683,10886,6.3,649
+2026-07-21,engineering,SQL,Language,669,10886,6.1,636
+2026-07-21,engineering,TypeScript,Language,656,10886,6.0,628
+2026-07-21,engineering,JavaScript,Language,640,10886,5.9,621
+2026-07-21,engineering,Agile / Scrum,Methodology,517,10886,4.7,514
+2026-07-21,engineering,CI/CD,Pipeline,491,10886,4.5,454
+2026-07-21,engineering,Kubernetes,Orchestration,444,10886,4.1,384
+2026-07-21,engineering,GCP,Cloud,423,10886,3.9,373
+2026-07-21,engineering,Azure,Cloud,401,10886,3.7,366
+2026-07-21,engineering,Git,Tool,397,10886,3.6,381
+2026-07-21,engineering,Node.js,Runtime,379,10886,3.5,370
+2026-07-21,engineering,AI Agents,Technique,360,10886,3.3,351
+2026-07-21,engineering,C#,Language,343,10886,3.2,339
+2026-07-21,engineering,Docker,DevOps,342,10886,3.1,304
+2026-07-21,engineering,Machine Learning,Skill,331,10886,3.0,315
+2026-07-21,engineering,Angular,Framework,313,10886,2.9,311
+2026-07-21,engineering,C++,Language,321,10886,2.9,310
+2026-07-21,engineering,Kotlin,Language,288,10886,2.6,276
+2026-07-21,engineering,PostgreSQL,Database,285,10886,2.6,263
+2026-07-21,engineering,Spark,Processing,234,10886,2.1,222
+2026-07-21,engineering,Spring,Framework,196,10886,1.8,193
+2026-07-21,engineering,Terraform,IaC,189,10886,1.7,174
+2026-07-21,engineering,Databricks,Platform,168,10886,1.5,164
+2026-07-21,engineering,Excel,Tool,158,10886,1.5,157
+2026-07-21,engineering,Grafana,Monitoring,162,10886,1.5,152
+2026-07-21,engineering,A/B Testing,Skill,157,10886,1.4,138
+2026-07-21,engineering,Rust,Language,157,10886,1.4,141
+2026-07-21,engineering,Kafka,Streaming,157,10886,1.4,133
+2026-07-21,engineering,System Design,Skill,146,10886,1.3,144
+2026-07-21,engineering,REST API,API,143,10886,1.3,142
+2026-07-21,engineering,Ruby,Language,140,10886,1.3,124
+2026-07-21,engineering,Go,Language,139,10886,1.3,125
+2026-07-21,engineering,GraphQL,API,132,10886,1.2,107
+2026-07-21,engineering,RAG,Technique,117,10886,1.1,110
+2026-07-21,engineering,Next.js,Framework,118,10886,1.1,117
+2026-07-21,engineering,MySQL,Database,125,10886,1.1,119
+2026-07-21,engineering,MongoDB,Database,120,10886,1.1,109
+2026-07-21,engineering,MLflow,MLOps,123,10886,1.1,122
+2026-07-21,engineering,Linux,OS,116,10886,1.1,107
+2026-07-21,engineering,Scala,Language,112,10886,1.0,107
+2026-07-21,engineering,Prototyping,Skill,112,10886,1.0,112
+2026-07-21,engineering,Incident Response,Skill,104,10886,1.0,100
+2026-07-21,engineering,DynamoDB,Database,93,10886,0.9,78
+2026-07-21,engineering,Vue,Framework,97,10886,0.9,97
+2026-07-21,engineering,Datadog,Monitoring,87,10886,0.8,81
+2026-07-21,engineering,Elasticsearch,Database,78,10886,0.7,65
+2026-07-21,engineering,ETL,Skill,78,10886,0.7,58
+2026-07-21,engineering,AI Coding Tools,Tool,80,10886,0.7,75
+2026-07-21,engineering,Data Modeling,Skill,71,10886,0.7,69
+2026-07-21,engineering,Redis,Database,63,10886,0.6,55
+2026-07-21,engineering,Airflow,Orchestrator,61,10886,0.6,50
+2026-07-21,engineering,dbt,Transform,62,10886,0.6,61
+2026-07-21,engineering,PHP,Language,58,10886,0.5,57
+2026-07-21,engineering,Snowflake,Warehouse,55,10886,0.5,49
+2026-07-21,engineering,Swift,Language,57,10886,0.5,53
+2026-07-21,engineering,Fine-tuning,Technique,41,10886,0.4,38
+2026-07-21,engineering,Jira,Tool,39,10886,0.4,37
+2026-07-21,engineering,Salesforce,Platform,40,10886,0.4,36
+2026-07-21,engineering,Django,Framework,40,10886,0.4,38
+2026-07-21,engineering,FastAPI,Framework,46,10886,0.4,44
+2026-07-21,engineering,Figma,Design,43,10886,0.4,41
+2026-07-21,engineering,Fivetran,Tool,33,10886,0.3,33
+2026-07-21,engineering,Microservices,Architecture,37,10886,0.3,33
+2026-07-21,engineering,Prometheus,Monitoring,38,10886,0.3,30
+2026-07-21,engineering,Data Pipeline,Skill,38,10886,0.3,34
+2026-07-21,engineering,BigQuery,Warehouse,32,10886,0.3,25
+2026-07-21,engineering,Segment,Analytics,30,10886,0.3,29
+2026-07-21,engineering,AWS Security,Cloud,29,10886,0.3,26
+2026-07-21,engineering,Statistical Analysis,Skill,29,10886,0.3,26
+2026-07-21,engineering,Vector Databases,Database,28,10886,0.3,28
+2026-07-21,engineering,Flask,Framework,24,10886,0.2,22
+2026-07-21,engineering,SIEM,Tool,24,10886,0.2,21
+2026-07-21,engineering,Redshift,Warehouse,18,10886,0.2,15
+2026-07-21,engineering,MCP,Protocol,27,10886,0.2,24
+2026-07-21,engineering,PyTorch,Framework,17,10886,0.2,14
+2026-07-21,engineering,Bash,Language,22,10886,0.2,22
+2026-07-21,engineering,Apache Iceberg,Table Format,24,10886,0.2,20
+2026-07-21,engineering,LLM APIs,API,21,10886,0.2,15
+2026-07-21,engineering,Cassandra,Database,24,10886,0.2,11
+2026-07-21,engineering,Trino,Query Engine,19,10886,0.2,13
+2026-07-21,engineering,Helm,Orchestration,19,10886,0.2,16
+2026-07-21,engineering,NLP,Skill,18,10886,0.2,18
+2026-07-21,engineering,Flink,Streaming,27,10886,0.2,23
+2026-07-21,engineering,Prompt Engineering,Skill,26,10886,0.2,22
+2026-07-21,engineering,LangChain,Framework,19,10886,0.2,16
+2026-07-21,engineering,User Research,Skill,10,10886,0.1,9
+2026-07-21,engineering,ClickHouse,Database,14,10886,0.1,12
+2026-07-21,engineering,Power BI,BI,10,10886,0.1,10
+2026-07-21,engineering,SageMaker,MLOps,7,10886,0.1,0
+2026-07-21,engineering,Workday,Platform,15,10886,0.1,15
+2026-07-21,engineering,Deep Learning,Skill,15,10886,0.1,14
+2026-07-21,engineering,ServiceNow,Platform,7,10886,0.1,5
+2026-07-21,engineering,Pulumi,IaC,9,10886,0.1,9
+2026-07-21,engineering,SOC 2,Compliance,8,10886,0.1,6
+2026-07-21,engineering,Workflow Automation,Tool,8,10886,0.1,8
+2026-07-21,engineering,ArgoCD,GitOps,11,10886,0.1,11
+2026-07-21,engineering,Data Visualization,Skill,9,10886,0.1,9
+2026-07-21,engineering,Linear,Tool,10,10886,0.1,10
+2026-07-21,engineering,Oracle,Database,8,10886,0.1,8
+2026-07-21,engineering,Ansible,Config,13,10886,0.1,13
+2026-07-21,engineering,Tableau,BI,10,10886,0.1,10
+2026-07-21,engineering,TensorFlow,Framework,15,10886,0.1,12
+2026-07-21,engineering,Amplitude,Analytics,15,10886,0.1,15
+2026-07-21,engineering,Dagster,Orchestrator,6,10886,0.1,4
+2026-07-21,engineering,Looker,BI,7,10886,0.1,3
+2026-07-21,engineering,XGBoost,Library,1,10886,0.0,1
+2026-07-21,engineering,NetSuite,Platform,3,10886,0.0,3
+2026-07-21,engineering,Dynamics 365,Platform,2,10886,0.0,2
+2026-07-21,engineering,NumPy,Library,2,10886,0.0,2
+2026-07-21,engineering,OWASP,Framework,2,10886,0.0,1
+2026-07-21,engineering,Pandas,Library,3,10886,0.0,3
+2026-07-21,engineering,Penetration Testing,Skill,2,10886,0.0,2
+2026-07-21,engineering,DuckDB,Database,1,10886,0.0,1
+2026-07-21,engineering,Prefect,Orchestrator,3,10886,0.0,3
+2026-07-21,engineering,Jupyter,Tool,2,10886,0.0,1
+2026-07-21,engineering,vLLM,Infra,4,10886,0.0,3
+2026-07-21,engineering,Ray,Infra,1,10886,0.0,1
+2026-07-21,engineering,Data Observability,Skill,3,10886,0.0,3
+2026-07-21,engineering,CISSP,Certification,1,10886,0.0,0
+2026-07-21,engineering,SAP,Platform,2,10886,0.0,2
+2026-07-21,engineering,SAS,Language,1,10886,0.0,1
+2026-07-21,engineering,Airbyte,Tool,3,10886,0.0,3
+2026-07-21,engineering,scikit-learn,Library,3,10886,0.0,3
+2026-07-21,engineering,MuleSoft,Tool,1,10886,0.0,1
+2026-07-21,engineering,Hugging Face,Library,3,10886,0.0,3
+2026-07-21,engineering,Supabase,Platform,1,10886,0.0,1
+2026-07-21,engineering,Superset,BI,1,10886,0.0,1
+2026-07-21,engineering,Svelte,Framework,5,10886,0.0,4
+2026-07-21,engineering,Zero Trust,Architecture,5,10886,0.0,4
+2026-07-21,engineering,Alteryx,Tool,2,10886,0.0,2
+2026-07-21,engineering,Informatica,Tool,3,10886,0.0,3
+2026-07-21,engineering,Mixpanel,Analytics,5,10886,0.0,5
+2026-07-21,engineering,Firebase,Platform,5,10886,0.0,4
+2026-07-21,product,Stakeholder Mgmt,Soft Skill,397,1983,20.0,395
+2026-07-21,product,LLMs / GenAI,Skill,156,1983,7.9,141
+2026-07-21,product,AI Agents,Technique,125,1983,6.3,120
+2026-07-21,product,A/B Testing,Skill,119,1983,6.0,114
+2026-07-21,product,Prototyping,Skill,103,1983,5.2,98
+2026-07-21,product,Figma,Design,95,1983,4.8,91
+2026-07-21,product,SQL,Language,92,1983,4.6,83
+2026-07-21,product,User Research,Skill,76,1983,3.8,70
+2026-07-21,product,Machine Learning,Skill,49,1983,2.5,47
+2026-07-21,product,Agile / Scrum,Methodology,49,1983,2.5,46
+2026-07-21,product,AWS,Cloud,48,1983,2.4,40
+2026-07-21,product,Spark,Processing,45,1983,2.3,45
+2026-07-21,product,Excel,Tool,38,1983,1.9,38
+2026-07-21,product,Datadog,Monitoring,33,1983,1.7,31
+2026-07-21,product,Azure,Cloud,34,1983,1.7,26
+2026-07-21,product,Databricks,Platform,33,1983,1.7,30
+2026-07-21,product,GCP,Cloud,28,1983,1.4,20
+2026-07-21,product,MLflow,MLOps,26,1983,1.3,26
+2026-07-21,product,AI Coding Tools,Tool,24,1983,1.2,22
+2026-07-21,product,Python,Language,21,1983,1.1,18
+2026-07-21,product,dbt,Transform,20,1983,1.0,20
+2026-07-21,product,Elasticsearch,Database,19,1983,1.0,19
+2026-07-21,product,RAG,Technique,20,1983,1.0,18
+2026-07-21,product,Fivetran,Tool,20,1983,1.0,20
+2026-07-21,product,Jira,Tool,19,1983,1.0,17
+2026-07-21,product,Salesforce,Platform,17,1983,0.9,14
+2026-07-21,product,MongoDB,Database,17,1983,0.9,17
+2026-07-21,product,ETL,Skill,16,1983,0.8,12
+2026-07-21,product,Node.js,Runtime,16,1983,0.8,16
+2026-07-21,product,System Design,Skill,14,1983,0.7,14
+2026-07-21,product,Segment,Analytics,13,1983,0.7,12
+2026-07-21,product,Mixpanel,Analytics,11,1983,0.6,11
+2026-07-21,product,Fine-tuning,Technique,11,1983,0.6,7
+2026-07-21,product,Git,Tool,10,1983,0.5,9
+2026-07-21,product,Snowflake,Warehouse,10,1983,0.5,7
+2026-07-21,product,Kubernetes,Orchestration,10,1983,0.5,6
+2026-07-21,product,Amplitude,Analytics,10,1983,0.5,10
+2026-07-21,product,Ruby,Language,9,1983,0.5,9
+2026-07-21,product,CI/CD,Pipeline,9,1983,0.5,8
+2026-07-21,product,Statistical Analysis,Skill,7,1983,0.4,7
+2026-07-21,product,Angular,Framework,8,1983,0.4,8
+2026-07-21,product,C#,Language,7,1983,0.4,7
+2026-07-21,product,JavaScript,Language,7,1983,0.4,6
+2026-07-21,product,Linear,Tool,8,1983,0.4,8
+2026-07-21,product,Prompt Engineering,Skill,7,1983,0.4,4
+2026-07-21,product,React,Framework,7,1983,0.4,5
+2026-07-21,product,SIEM,Tool,8,1983,0.4,5
+2026-07-21,product,Tableau,BI,5,1983,0.3,4
+2026-07-21,product,Data Observability,Skill,6,1983,0.3,5
+2026-07-21,product,Data Pipeline,Skill,5,1983,0.3,5
+2026-07-21,product,MCP,Protocol,5,1983,0.3,4
+2026-07-21,product,SOC 2,Compliance,5,1983,0.3,2
+2026-07-21,product,Workday,Platform,5,1983,0.3,4
+2026-07-21,product,Looker,BI,6,1983,0.3,4
+2026-07-21,product,Kafka,Streaming,6,1983,0.3,5
+2026-07-21,product,Data Visualization,Skill,5,1983,0.3,5
+2026-07-21,product,Data Modeling,Skill,5,1983,0.3,5
+2026-07-21,product,Airflow,Orchestrator,4,1983,0.2,2
+2026-07-21,product,Java,Language,3,1983,0.2,3
+2026-07-21,product,Deep Learning,Skill,3,1983,0.2,3
+2026-07-21,product,LangChain,Framework,4,1983,0.2,2
+2026-07-21,product,PostgreSQL,Database,4,1983,0.2,4
+2026-07-21,product,Dagster,Orchestrator,3,1983,0.2,1
+2026-07-21,product,Redshift,Warehouse,3,1983,0.2,3
+2026-07-21,product,BigQuery,Warehouse,3,1983,0.2,3
+2026-07-21,product,MySQL,Database,3,1983,0.2,3
+2026-07-21,product,NetSuite,Platform,4,1983,0.2,4
+2026-07-21,product,AWS Security,Cloud,4,1983,0.2,4
+2026-07-21,product,Next.js,Framework,3,1983,0.2,3
+2026-07-21,product,TypeScript,Language,3,1983,0.2,3
+2026-07-21,product,SageMaker,MLOps,1,1983,0.1,1
+2026-07-21,product,SAP,Platform,2,1983,0.1,2
+2026-07-21,product,Scala,Language,2,1983,0.1,2
+2026-07-21,product,scikit-learn,Library,1,1983,0.1,0
+2026-07-21,product,ServiceNow,Platform,2,1983,0.1,1
+2026-07-21,product,XGBoost,Library,1,1983,0.1,0
+2026-07-21,product,ClickHouse,Database,1,1983,0.1,0
+2026-07-21,product,Spring,Framework,1,1983,0.1,1
+2026-07-21,product,CISSP,Certification,1,1983,0.1,0
+2026-07-21,product,C++,Language,1,1983,0.1,1
+2026-07-21,product,Svelte,Framework,1,1983,0.1,1
+2026-07-21,product,Swift,Language,2,1983,0.1,2
+2026-07-21,product,TensorFlow,Framework,2,1983,0.1,1
+2026-07-21,product,Terraform,IaC,2,1983,0.1,2
+2026-07-21,product,Trino,Query Engine,1,1983,0.1,1
+2026-07-21,product,Kotlin,Language,1,1983,0.1,1
+2026-07-21,product,Incident Response,Skill,1,1983,0.1,1
+2026-07-21,product,Vector Databases,Database,2,1983,0.1,2
+2026-07-21,product,Hugging Face,Library,2,1983,0.1,1
+2026-07-21,product,Grafana,Monitoring,2,1983,0.1,2
+2026-07-21,product,Metabase,BI,1,1983,0.1,1
+2026-07-21,product,Go,Language,2,1983,0.1,2
+2026-07-21,product,Flink,Streaming,1,1983,0.1,0
+2026-07-21,product,DynamoDB,Database,1,1983,0.1,1
+2026-07-21,product,MuleSoft,Tool,1,1983,0.1,1
+2026-07-21,product,NLP,Skill,2,1983,0.1,2
+2026-07-21,product,Dynamics 365,Platform,1,1983,0.1,1
+2026-07-21,product,NumPy,Library,2,1983,0.1,2
+2026-07-21,product,Oracle,Database,1,1983,0.1,1
+2026-07-21,product,Pandas,Library,2,1983,0.1,2
+2026-07-21,product,PHP,Language,1,1983,0.1,1
+2026-07-21,product,Power BI,BI,1,1983,0.1,0
+2026-07-21,product,Prefect,Orchestrator,1,1983,0.1,1
+2026-07-21,product,Prometheus,Monitoring,1,1983,0.1,1
+2026-07-21,product,Vue,Framework,2,1983,0.1,2
+2026-07-21,product,Docker,DevOps,1,1983,0.1,1
+2026-07-21,product,PyTorch,Framework,2,1983,0.1,1
+2026-07-21,product,Redis,Database,1,1983,0.1,1
+2026-07-21,product,Rust,Language,2,1983,0.1,2
+2026-07-21,devops,AWS,Cloud,614,4010,15.3,605
+2026-07-21,devops,CI/CD,Pipeline,523,4010,13.0,515
+2026-07-21,devops,Azure,Cloud,485,4010,12.1,477
+2026-07-21,devops,Terraform,IaC,470,4010,11.7,460
+2026-07-21,devops,Kubernetes,Orchestration,394,4010,9.8,375
+2026-07-21,devops,Python,Language,260,4010,6.5,256
+2026-07-21,devops,Docker,DevOps,209,4010,5.2,201
+2026-07-21,devops,Linux,OS,206,4010,5.1,195
+2026-07-21,devops,GCP,Cloud,190,4010,4.7,184
+2026-07-21,devops,Git,Tool,170,4010,4.2,168
+2026-07-21,devops,Agile / Scrum,Methodology,141,4010,3.5,139
+2026-07-21,devops,Stakeholder Mgmt,Soft Skill,119,4010,3.0,116
+2026-07-21,devops,Ansible,Config,90,4010,2.2,85
+2026-07-21,devops,SQL,Language,85,4010,2.1,77
+2026-07-21,devops,Machine Learning,Skill,85,4010,2.1,84
+2026-07-21,devops,Java,Language,83,4010,2.1,81
+2026-07-21,devops,Bash,Language,71,4010,1.8,70
+2026-07-21,devops,AWS Security,Cloud,67,4010,1.7,65
+2026-07-21,devops,Incident Response,Skill,65,4010,1.6,64
+2026-07-21,devops,LLMs / GenAI,Skill,59,4010,1.5,54
+2026-07-21,devops,Grafana,Monitoring,44,4010,1.1,33
+2026-07-21,devops,ArgoCD,GitOps,43,4010,1.1,40
+2026-07-21,devops,dbt,Transform,41,4010,1.0,41
+2026-07-21,devops,AI Agents,Technique,40,4010,1.0,40
+2026-07-21,devops,Prometheus,Monitoring,42,4010,1.0,31
+2026-07-21,devops,C#,Language,39,4010,1.0,39
+2026-07-21,devops,JavaScript,Language,35,4010,0.9,34
+2026-07-21,devops,PostgreSQL,Database,38,4010,0.9,31
+2026-07-21,devops,Helm,Orchestration,37,4010,0.9,37
+2026-07-21,devops,Datadog,Monitoring,32,4010,0.8,31
+2026-07-21,devops,Kafka,Streaming,32,4010,0.8,29
+2026-07-21,devops,React,Framework,27,4010,0.7,27
+2026-07-21,devops,TypeScript,Language,30,4010,0.7,29
+2026-07-21,devops,Jira,Tool,27,4010,0.7,25
+2026-07-21,devops,Pulumi,IaC,20,4010,0.5,20
+2026-07-21,devops,Go,Language,20,4010,0.5,19
+2026-07-21,devops,A/B Testing,Skill,21,4010,0.5,21
+2026-07-21,devops,System Design,Skill,19,4010,0.5,19
+2026-07-21,devops,Rust,Language,19,4010,0.5,17
+2026-07-21,devops,SIEM,Tool,22,4010,0.5,22
+2026-07-21,devops,C++,Language,22,4010,0.5,22
+2026-07-21,devops,Spark,Processing,20,4010,0.5,20
+2026-07-21,devops,MongoDB,Database,22,4010,0.5,21
+2026-07-21,devops,Ruby,Language,17,4010,0.4,17
+2026-07-21,devops,Elasticsearch,Database,16,4010,0.4,16
+2026-07-21,devops,Excel,Tool,17,4010,0.4,16
+2026-07-21,devops,Node.js,Runtime,16,4010,0.4,16
+2026-07-21,devops,Snowflake,Warehouse,16,4010,0.4,16
+2026-07-21,devops,Salesforce,Platform,11,4010,0.3,10
+2026-07-21,devops,Fivetran,Tool,12,4010,0.3,12
+2026-07-21,devops,AI Coding Tools,Tool,11,4010,0.3,11
+2026-07-21,devops,Databricks,Platform,12,4010,0.3,12
+2026-07-21,devops,Oracle,Database,10,4010,0.2,10
+2026-07-21,devops,ClickHouse,Database,9,4010,0.2,6
+2026-07-21,devops,Scala,Language,7,4010,0.2,7
+2026-07-21,devops,REST API,API,9,4010,0.2,9
+2026-07-21,devops,Microservices,Architecture,9,4010,0.2,9
+2026-07-21,devops,Redis,Database,8,4010,0.2,6
+2026-07-21,devops,Spring,Framework,10,4010,0.2,10
+2026-07-21,devops,PyTorch,Framework,7,4010,0.2,6
+2026-07-21,devops,Angular,Framework,7,4010,0.2,7
+2026-07-21,devops,BigQuery,Warehouse,9,4010,0.2,9
+2026-07-21,devops,MySQL,Database,9,4010,0.2,8
+2026-07-21,devops,ETL,Skill,10,4010,0.2,8
+2026-07-21,devops,SOC 2,Compliance,7,4010,0.2,4
+2026-07-21,devops,Prototyping,Skill,5,4010,0.1,5
+2026-07-21,devops,Data Pipeline,Skill,5,4010,0.1,5
+2026-07-21,devops,Hugging Face,Library,3,4010,0.1,3
+2026-07-21,devops,Flask,Framework,3,4010,0.1,3
+2026-07-21,devops,Figma,Design,5,4010,0.1,5
+2026-07-21,devops,Kotlin,Language,6,4010,0.1,2
+2026-07-21,devops,Linear,Tool,3,4010,0.1,3
+2026-07-21,devops,DynamoDB,Database,3,4010,0.1,3
+2026-07-21,devops,Looker,BI,3,4010,0.1,3
+2026-07-21,devops,MLflow,MLOps,5,4010,0.1,4
+2026-07-21,devops,Django,Framework,4,4010,0.1,4
+2026-07-21,devops,MuleSoft,Tool,3,4010,0.1,2
+2026-07-21,devops,NetSuite,Platform,6,4010,0.1,4
+2026-07-21,devops,Next.js,Framework,5,4010,0.1,5
+2026-07-21,devops,Workflow Automation,Tool,3,4010,0.1,3
+2026-07-21,devops,Penetration Testing,Skill,3,4010,0.1,3
+2026-07-21,devops,PHP,Language,4,4010,0.1,4
+2026-07-21,devops,Deep Learning,Skill,3,4010,0.1,3
+2026-07-21,devops,Prefect,Orchestrator,3,4010,0.1,3
+2026-07-21,devops,RAG,Technique,5,4010,0.1,4
+2026-07-21,devops,SageMaker,MLOps,4,4010,0.1,4
+2026-07-21,devops,Segment,Analytics,4,4010,0.1,4
+2026-07-21,devops,Cassandra,Database,4,4010,0.1,1
+2026-07-21,devops,Zero Trust,Architecture,6,4010,0.1,4
+2026-07-21,devops,Amplitude,Analytics,4,4010,0.1,4
+2026-07-21,devops,Statistical Analysis,Skill,3,4010,0.1,3
+2026-07-21,devops,Swift,Language,4,4010,0.1,3
+2026-07-21,devops,Airflow,Orchestrator,4,4010,0.1,4
+2026-07-21,devops,Vector Databases,Database,3,4010,0.1,3
+2026-07-21,devops,Workday,Platform,5,4010,0.1,5
+2026-07-21,devops,GraphQL,API,4,4010,0.1,4
+2026-07-21,devops,Flink,Streaming,6,4010,0.1,6
+2026-07-21,devops,ServiceNow,Platform,1,4010,0.0,1
+2026-07-21,devops,TensorFlow,Framework,1,4010,0.0,1
+2026-07-21,devops,vLLM,Infra,1,4010,0.0,0
+2026-07-21,devops,LLM APIs,API,2,4010,0.0,2
+2026-07-21,devops,LangChain,Framework,2,4010,0.0,2
+2026-07-21,devops,FastAPI,Framework,1,4010,0.0,1
+2026-07-21,devops,Fine-tuning,Technique,2,4010,0.0,2
+2026-07-21,devops,SSIS,Tool,2,4010,0.0,2
+2026-07-21,devops,Informatica,Tool,2,4010,0.0,2
+2026-07-21,devops,User Research,Skill,1,4010,0.0,1
+2026-07-21,devops,Supabase,Platform,1,4010,0.0,0
+2026-07-21,devops,Data Visualization,Skill,1,4010,0.0,1
+2026-07-21,devops,Svelte,Framework,2,4010,0.0,2
+2026-07-21,devops,Data Modeling,Skill,1,4010,0.0,1
+2026-07-21,devops,Prompt Engineering,Skill,1,4010,0.0,1
+2026-07-21,devops,Redshift,Warehouse,2,4010,0.0,2
+2026-07-21,devops,Power BI,BI,2,4010,0.0,2
+2026-07-21,devops,OWASP,Framework,1,4010,0.0,1
+2026-07-21,devops,CISSP,Certification,1,4010,0.0,0
+2026-07-21,devops,Vue,Framework,2,4010,0.0,2
+2026-07-21,devops,MCP,Protocol,1,4010,0.0,1
+2026-07-21,devops,SAS,Language,1,4010,0.0,1
+2026-07-21,devops,Dynamics 365,Platform,2,4010,0.0,2
+2026-07-21,devops,Alteryx,Tool,1,4010,0.0,1
+2026-07-21,security,AWS,Cloud,170,1907,8.9,159
+2026-07-21,security,Incident Response,Skill,127,1907,6.7,125
+2026-07-21,security,SIEM,Tool,125,1907,6.6,116
+2026-07-21,security,Python,Language,105,1907,5.5,99
+2026-07-21,security,Azure,Cloud,96,1907,5.0,94
+2026-07-21,security,GCP,Cloud,77,1907,4.0,70
+2026-07-21,security,Stakeholder Mgmt,Soft Skill,68,1907,3.6,67
+2026-07-21,security,AWS Security,Cloud,54,1907,2.8,53
+2026-07-21,security,CI/CD,Pipeline,47,1907,2.5,43
+2026-07-21,security,Kubernetes,Orchestration,46,1907,2.4,33
+2026-07-21,security,LLMs / GenAI,Skill,44,1907,2.3,32
+2026-07-21,security,Penetration Testing,Skill,40,1907,2.1,39
+2026-07-21,security,AI Agents,Technique,40,1907,2.1,37
+2026-07-21,security,Terraform,IaC,41,1907,2.1,38
+2026-07-21,security,Docker,DevOps,32,1907,1.7,27
+2026-07-21,security,Spark,Processing,28,1907,1.5,26
+2026-07-21,security,CISSP,Certification,24,1907,1.3,11
+2026-07-21,security,Linux,OS,25,1907,1.3,23
+2026-07-21,security,OWASP,Framework,22,1907,1.2,20
+2026-07-21,security,Git,Tool,21,1907,1.1,18
+2026-07-21,security,Agile / Scrum,Methodology,20,1907,1.0,19
+2026-07-21,security,Zero Trust,Architecture,20,1907,1.0,19
+2026-07-21,security,JavaScript,Language,18,1907,0.9,16
+2026-07-21,security,Machine Learning,Skill,15,1907,0.8,12
+2026-07-21,security,SQL,Language,15,1907,0.8,14
+2026-07-21,security,SOC 2,Compliance,15,1907,0.8,14
+2026-07-21,security,Java,Language,16,1907,0.8,15
+2026-07-21,security,Datadog,Monitoring,13,1907,0.7,12
+2026-07-21,security,Rust,Language,13,1907,0.7,11
+2026-07-21,security,Excel,Tool,11,1907,0.6,11
+2026-07-21,security,Databricks,Platform,11,1907,0.6,9
+2026-07-21,security,TypeScript,Language,11,1907,0.6,9
+2026-07-21,security,C++,Language,10,1907,0.5,10
+2026-07-21,security,AI Coding Tools,Tool,9,1907,0.5,6
+2026-07-21,security,Bash,Language,8,1907,0.4,7
+2026-07-21,security,Node.js,Runtime,8,1907,0.4,8
+2026-07-21,security,Snowflake,Warehouse,7,1907,0.4,7
+2026-07-21,security,Ruby,Language,7,1907,0.4,5
+2026-07-21,security,MLflow,MLOps,7,1907,0.4,7
+2026-07-21,security,A/B Testing,Skill,5,1907,0.3,5
+2026-07-21,security,Burp Suite,Tool,6,1907,0.3,6
+2026-07-21,security,Jira,Tool,6,1907,0.3,5
+2026-07-21,security,MCP,Protocol,5,1907,0.3,4
+2026-07-21,security,Next.js,Framework,5,1907,0.3,5
+2026-07-21,security,Prototyping,Skill,5,1907,0.3,5
+2026-07-21,security,System Design,Skill,6,1907,0.3,6
+2026-07-21,security,Figma,Design,3,1907,0.2,3
+2026-07-21,security,RAG,Technique,3,1907,0.2,2
+2026-07-21,security,Elasticsearch,Database,3,1907,0.2,2
+2026-07-21,security,React,Framework,4,1907,0.2,4
+2026-07-21,security,MongoDB,Database,4,1907,0.2,4
+2026-07-21,security,C#,Language,3,1907,0.2,3
+2026-07-21,security,Kotlin,Language,3,1907,0.2,1
+2026-07-21,security,Go,Language,3,1907,0.2,3
+2026-07-21,security,ServiceNow,Platform,3,1907,0.2,3
+2026-07-21,security,Pulumi,IaC,1,1907,0.1,1
+2026-07-21,security,Grafana,Monitoring,1,1907,0.1,1
+2026-07-21,security,PyTorch,Framework,1,1907,0.1,0
+2026-07-21,security,Redis,Database,2,1907,0.1,1
+2026-07-21,security,REST API,API,2,1907,0.1,2
+2026-07-21,security,Fine-tuning,Technique,1,1907,0.1,1
+2026-07-21,security,SageMaker,MLOps,1,1907,0.1,1
+2026-07-21,security,SAP,Platform,1,1907,0.1,1
+2026-07-21,security,Scala,Language,1,1907,0.1,1
+2026-07-21,security,Segment,Analytics,2,1907,0.1,2
+2026-07-21,security,ETL,Skill,1,1907,0.1,1
+2026-07-21,security,DynamoDB,Database,2,1907,0.1,0
+2026-07-21,security,Data Pipeline,Skill,2,1907,0.1,2
+2026-07-21,security,Statistical Analysis,Skill,1,1907,0.1,1
+2026-07-21,security,Swift,Language,2,1907,0.1,2
+2026-07-21,security,Angular,Framework,1,1907,0.1,1
+2026-07-21,security,Tableau,BI,2,1907,0.1,2
+2026-07-21,security,TensorFlow,Framework,2,1907,0.1,1
+2026-07-21,security,BigQuery,Warehouse,2,1907,0.1,2
+2026-07-21,security,Trino,Query Engine,1,1907,0.1,0
+2026-07-21,security,Ansible,Config,2,1907,0.1,2
+2026-07-21,security,LLM APIs,API,1,1907,0.1,1
+2026-07-21,security,Looker,BI,2,1907,0.1,2
+2026-07-21,security,Linear,Tool,1,1907,0.1,0
+2026-07-21,security,Mixpanel,Analytics,1,1907,0.1,1
+2026-07-21,security,Vue,Framework,1,1907,0.1,1
+2026-07-21,security,LangChain,Framework,1,1907,0.1,1
+2026-07-21,security,MySQL,Database,1,1907,0.1,0
+2026-07-21,security,Workday,Platform,1,1907,0.1,1
+2026-07-21,security,Helm,Orchestration,1,1907,0.1,1
+2026-07-21,security,GraphQL,API,2,1907,0.1,0
+2026-07-21,security,PostgreSQL,Database,2,1907,0.1,1
+2026-07-21,security,Prometheus,Monitoring,1,1907,0.1,1
+2026-07-21,security,Workflow Automation,Tool,1,1907,0.1,1
+2026-07-21,ai,Machine Learning,Skill,1025,3213,31.9,1019
+2026-07-21,ai,LLMs / GenAI,Skill,566,3213,17.6,557
+2026-07-21,ai,Python,Language,328,3213,10.2,322
+2026-07-21,ai,AI Agents,Technique,220,3213,6.8,213
+2026-07-21,ai,PyTorch,Framework,142,3213,4.4,140
+2026-07-21,ai,AWS,Cloud,137,3213,4.3,132
+2026-07-21,ai,Stakeholder Mgmt,Soft Skill,135,3213,4.2,132
+2026-07-21,ai,RAG,Technique,125,3213,3.9,118
+2026-07-21,ai,Azure,Cloud,115,3213,3.6,111
+2026-07-21,ai,Fine-tuning,Technique,110,3213,3.4,102
+2026-07-21,ai,Deep Learning,Skill,104,3213,3.2,99
+2026-07-21,ai,TensorFlow,Framework,96,3213,3.0,94
+2026-07-21,ai,Agile / Scrum,Methodology,90,3213,2.8,87
+2026-07-21,ai,A/B Testing,Skill,87,3213,2.7,83
+2026-07-21,ai,NLP,Skill,76,3213,2.4,72
+2026-07-21,ai,Statistical Analysis,Skill,72,3213,2.2,67
+2026-07-21,ai,SQL,Language,67,3213,2.1,57
+2026-07-21,ai,GCP,Cloud,67,3213,2.1,63
+2026-07-21,ai,Spark,Processing,60,3213,1.9,55
+2026-07-21,ai,Kubernetes,Orchestration,59,3213,1.8,53
+2026-07-21,ai,Hugging Face,Library,53,3213,1.6,51
+2026-07-21,ai,MLflow,MLOps,50,3213,1.6,47
+2026-07-21,ai,LangChain,Framework,46,3213,1.4,46
+2026-07-21,ai,Databricks,Platform,43,3213,1.3,42
+2026-07-21,ai,Java,Language,42,3213,1.3,41
+2026-07-21,ai,scikit-learn,Library,38,3213,1.2,38
+2026-07-21,ai,Docker,DevOps,39,3213,1.2,37
+2026-07-21,ai,CI/CD,Pipeline,39,3213,1.2,39
+2026-07-21,ai,Prototyping,Skill,34,3213,1.1,29
+2026-07-21,ai,Node.js,Runtime,33,3213,1.0,33
+2026-07-21,ai,C++,Language,32,3213,1.0,30
+2026-07-21,ai,Excel,Tool,33,3213,1.0,33
+2026-07-21,ai,Prompt Engineering,Skill,31,3213,1.0,29
+2026-07-21,ai,Airflow,Orchestrator,25,3213,0.8,20
+2026-07-21,ai,System Design,Skill,25,3213,0.8,24
+2026-07-21,ai,Git,Tool,22,3213,0.7,20
+2026-07-21,ai,XGBoost,Library,18,3213,0.6,18
+2026-07-21,ai,React,Framework,20,3213,0.6,19
+2026-07-21,ai,Kafka,Streaming,20,3213,0.6,13
+2026-07-21,ai,SageMaker,MLOps,18,3213,0.6,17
+2026-07-21,ai,Terraform,IaC,16,3213,0.5,14
+2026-07-21,ai,FastAPI,Framework,15,3213,0.5,15
+2026-07-21,ai,Datadog,Monitoring,15,3213,0.5,15
+2026-07-21,ai,JavaScript,Language,16,3213,0.5,16
+2026-07-21,ai,TypeScript,Language,17,3213,0.5,16
+2026-07-21,ai,Grafana,Monitoring,17,3213,0.5,17
+2026-07-21,ai,Pandas,Library,17,3213,0.5,17
+2026-07-21,ai,C#,Language,12,3213,0.4,12
+2026-07-21,ai,AI Coding Tools,Tool,14,3213,0.4,13
+2026-07-21,ai,BigQuery,Warehouse,13,3213,0.4,6
+2026-07-21,ai,ETL,Skill,12,3213,0.4,10
+2026-07-21,ai,PostgreSQL,Database,14,3213,0.4,14
+2026-07-21,ai,Rust,Language,13,3213,0.4,13
+2026-07-21,ai,Scala,Language,14,3213,0.4,14
+2026-07-21,ai,MongoDB,Database,10,3213,0.3,10
+2026-07-21,ai,Salesforce,Platform,9,3213,0.3,8
+2026-07-21,ai,Data Modeling,Skill,9,3213,0.3,9
+2026-07-21,ai,Snowflake,Warehouse,11,3213,0.3,11
+2026-07-21,ai,Go,Language,10,3213,0.3,9
+2026-07-21,ai,Incident Response,Skill,11,3213,0.3,10
+2026-07-21,ai,Vector Databases,Database,7,3213,0.2,7
+2026-07-21,ai,LLM APIs,API,7,3213,0.2,6
+2026-07-21,ai,Data Visualization,Skill,5,3213,0.2,4
+2026-07-21,ai,Redis,Database,5,3213,0.2,2
+2026-07-21,ai,Next.js,Framework,7,3213,0.2,7
+2026-07-21,ai,Workday,Platform,6,3213,0.2,5
+2026-07-21,ai,Elasticsearch,Database,5,3213,0.2,5
+2026-07-21,ai,Flink,Streaming,5,3213,0.2,3
+2026-07-21,ai,GraphQL,API,6,3213,0.2,6
+2026-07-21,ai,REST API,API,6,3213,0.2,6
+2026-07-21,ai,Ruby,Language,7,3213,0.2,7
+2026-07-21,ai,Angular,Framework,6,3213,0.2,6
+2026-07-21,ai,Linux,OS,8,3213,0.2,8
+2026-07-21,ai,Linear,Tool,3,3213,0.1,3
+2026-07-21,ai,Kotlin,Language,2,3213,0.1,2
+2026-07-21,ai,NumPy,Library,4,3213,0.1,4
+2026-07-21,ai,PHP,Language,2,3213,0.1,2
+2026-07-21,ai,Workflow Automation,Tool,3,3213,0.1,3
+2026-07-21,ai,Flask,Framework,3,3213,0.1,3
+2026-07-21,ai,Figma,Design,4,3213,0.1,4
+2026-07-21,ai,DynamoDB,Database,3,3213,0.1,3
+2026-07-21,ai,Redshift,Warehouse,3,3213,0.1,3
+2026-07-21,ai,Django,Framework,3,3213,0.1,3
+2026-07-21,ai,Segment,Analytics,4,3213,0.1,4
+2026-07-21,ai,ServiceNow,Platform,4,3213,0.1,4
+2026-07-21,ai,Spring,Framework,2,3213,0.1,2
+2026-07-21,ai,Data Pipeline,Skill,2,3213,0.1,2
+2026-07-21,ai,Svelte,Framework,2,3213,0.1,2
+2026-07-21,ai,Swift,Language,2,3213,0.1,2
+2026-07-21,ai,ArgoCD,GitOps,2,3213,0.1,2
+2026-07-21,ai,Trino,Query Engine,2,3213,0.1,2
+2026-07-21,ai,vLLM,Infra,3,3213,0.1,2
+2026-07-21,ai,Vue,Framework,4,3213,0.1,4
+2026-07-21,ai,MCP,Protocol,4,3213,0.1,3
+2026-07-21,ai,Jupyter,Tool,1,3213,0.0,1
+2026-07-21,ai,Bash,Language,1,3213,0.0,1
+2026-07-21,ai,AWS Security,Cloud,1,3213,0.0,1
+2026-07-21,ai,NetSuite,Platform,1,3213,0.0,1
+2026-07-21,ai,dbt,Transform,1,3213,0.0,1
+2026-07-21,ai,Zero Trust,Architecture,1,3213,0.0,1
+2026-07-21,ai,Prometheus,Monitoring,1,3213,0.0,1
+2026-07-21,ai,Amplitude,Analytics,1,3213,0.0,1
+2026-07-21,ai,SAS,Language,1,3213,0.0,1
+2026-07-21,ai,Dagster,Orchestrator,1,3213,0.0,1
+2026-07-21,ai,Streamlit,Framework,1,3213,0.0,1
+2026-07-21,ai,Supabase,Platform,1,3213,0.0,1
+2026-07-21,ai,Pulumi,IaC,1,3213,0.0,1
