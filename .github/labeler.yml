@@ -1,32 +1,51 @@
 # Auto Labeler 配置 — 根据文件路径自动打标签
 # 被 auto-merge.yml 工作流调用
+#
+# NOTE: 本文件使用 actions/labeler@v5 的 schema。v4 的 `- any: [...]` 键在 v5 已移除，
+#       合法键只有：any-glob-to-any-file / any-glob-to-all-files /
+#                  all-globs-to-any-file / all-globs-to-all-files
+#       且 changed-files 的每个元素必须是映射（纯字符串列表会被拒）。
 
 # 后端
 backend:
   - changed-files:
-      - any: ["backend/**"]
+      - any-glob-to-any-file:
+          - "backend/**"
 
 # 前端
 frontend:
   - changed-files:
-      - any: ["frontend/**"]
+      - any-glob-to-any-file:
+          - "frontend/**"
 
 # 基础设施
 infra:
   - changed-files:
-      - any: ["docker-compose*", "Dockerfile*", ".github/**", "scripts/**"]
+      - any-glob-to-any-file:
+          - "docker-compose*"
+          - "Dockerfile*"
+          - ".github/**"
+          - "scripts/**"
 
 # 文档
 documentation:
   - changed-files:
-      - any: ["**/*.md", "docs/**"]
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - "docs/**"
 
 # 测试
 test:
   - changed-files:
-      - any: ["**/*Test.java", "**/*.test.ts", "**/__tests__/**"]
+      - any-glob-to-any-file:
+          - "**/*Test.java"
+          - "**/*.test.ts"
+          - "**/__tests__/**"
 
 # 依赖更新（Dependabot 自带 "dependencies" 标签，这是补充）
 security:
   - changed-files:
-      - any: ["**/package-lock.json", "**/pom.xml", "**/requirements.txt"]
+      - any-glob-to-any-file:
+          - "**/package-lock.json"
+          - "**/pom.xml"
+          - "**/requirements.txt"
