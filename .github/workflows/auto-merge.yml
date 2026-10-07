@@ -43,7 +43,12 @@ jobs:
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
           steps.metadata.outputs.update-type == 'version-update:semver-minor'
         run: |
-          gh pr review --approve "$PR_URL"
+          # NOTE: intentionally no `gh pr review --approve` here.
+          # The GITHUB_TOKEN is forbidden by GitHub from approving pull requests
+          # ("GraphQL: GitHub Actions is not permitted to approve pull requests"),
+          # so that call can only ever fail. Under `bash -e` it aborted the step
+          # and the merge below never ran. `main` has no branch protection
+          # (no required reviews), so approving is unnecessary here.
           gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
