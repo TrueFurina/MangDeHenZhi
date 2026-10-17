@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>4.1.1</version>
         <relativePath/>
     </parent>
 
@@ -112,13 +112,26 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.6.0</version>
+            <version>3.1.1</version>
         </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--
+          Spring Boot 4 把 test-autoconfigure 按技术拆成独立模块：
+          @AutoConfigureMockMvc / @WebMvcTest 从
+            org.springframework.boot.test.autoconfigure.web.servlet   （Boot 3，包名）
+          移到
+            org.springframework.boot.webmvc.test.autoconfigure         （Boot 4）
+          且 spring-boot-starter-test 不再带这个模块，必须显式声明（版本由 parent 管理）。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

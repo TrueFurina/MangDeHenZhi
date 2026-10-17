@@ -1,6 +1,6 @@
 package com.mangdehenzhi.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.mangdehenzhi.entity.User;
 import com.mangdehenzhi.exception.BusinessException;
 import com.mangdehenzhi.repository.UserRepository;
