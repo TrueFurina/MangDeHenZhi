@@ -1,7 +1,7 @@
 package com.mangdehenzhi.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -145,7 +145,7 @@ public class AIService {
     private String toJson(Map<String, Object> map) {
         try {
             return OBJECT_MAPPER.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             log.error("JSON序列化失败", e);
             return "{}";
         }
