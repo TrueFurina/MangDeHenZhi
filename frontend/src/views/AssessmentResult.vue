@@ -152,7 +152,7 @@ import { ElMessage } from 'element-plus'
 import { assessmentApi } from '@/api'
 import AppHeader from '@/components/AppHeader.vue'
 import SkeletonCard from '@/components/SkeletonCard.vue'
-import type { AssessmentResult } from '@/types'
+import type { AssessmentResult, Recommendations } from '@/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -197,12 +197,14 @@ const parsedAnalysis = computed(() => {
   } catch { return null }
 })
 
-const parsedRecommendations = computed(() => {
+// 标注返回类型，避免 JSON.parse 的 any 传染到模板（否则 v-for 索引推断成
+// string | number，`{{ i + 1 }}` 会被 vue-tsc 3 判为 TS2365）。
+const parsedRecommendations = computed<Recommendations | null>(() => {
   if (!result.value?.recommendations) return null
   try {
-    return typeof result.value.recommendations === 'string'
+    return (typeof result.value.recommendations === 'string'
       ? JSON.parse(result.value.recommendations)
-      : result.value.recommendations
+      : result.value.recommendations) as Recommendations
   } catch { return null }
 })
 
