@@ -1,6 +1,16 @@
 # Dependabot 自动依赖更新配置
-# 每周一自动检查 Maven 和 npm 依赖更新并创建 PR
+# 每周一自动检查 Maven / npm / GitHub Actions 的依赖更新并创建 PR。
 # https://docs.github.com/en/code-security/dependabot
+#
+# ── 为什么分组（2026-10-17 调整）────────────────────────────────────────
+# 旧配置下「一个依赖一个 PR」：3 个生态 × open-pull-requests-limit 10
+# = 每周最多 30 个 PR。实际观测到一次积压 21 个依赖 PR，其中绝大多数是
+# patch/minor —— 本可以一起合，却被拆成十几个 PR、跑十几次 CI、产生十几次通知。
+#
+# 现在分两类：
+#   1. patch + minor → 每个生态**合并成一个 PR**（走 auto-merge.yml 的自动合并）
+#   2. major         → 仍然单独开（需要逐个迁移；混在一起会变成「要么全合、要么全不合」）
+# ──────────────────────────────────────────────────────────────────────
 
 version: 2
 updates:
@@ -12,13 +22,21 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "java"
     commit-message:
       prefix: "deps"
       prefix-development: "deps(dev)"
+    groups:
+      maven-patch-minor:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # ===== npm (Vue 前端) =====
   - package-ecosystem: "npm"
@@ -28,13 +46,21 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Asia/Shanghai"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "javascript"
     commit-message:
       prefix: "deps"
       prefix-development: "deps(dev)"
+    groups:
+      npm-patch-minor:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   # ===== GitHub Actions =====
   - package-ecosystem: "github-actions"
@@ -44,6 +70,15 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Asia/Shanghai"
+    open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "ci"
+    groups:
+      actions-patch-minor:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
