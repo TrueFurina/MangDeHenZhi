@@ -67,6 +67,20 @@ export interface AssessmentResult {
   completedAt: string
 }
 
+// AI 推荐结果。AssessmentResult.recommendations 是这份结构序列化后的 JSON 字符串，
+// 前端 JSON.parse 后使用；字段与后端
+// backend/src/main/java/com/mangdehenzhi/ai/RecommendationResult.java 一一对应。
+//
+// 为什么要显式声明：JSON.parse 返回 any，any 会传染到模板里。vue-tsc 3 对 any 上的
+// v-for 只能给出索引类型 string | number，于是 `{{ i + 1 }}` 被误判为 TS2365。
+// 声明成 string[] 后索引才是 number——这是修根因，不是把类型断言塞进模板。
+export interface Recommendations {
+  recommendedCourses?: string[]
+  learningPath?: string[]
+  estimatedImprovementTime?: string
+  practiceSuggestions?: string[]
+}
+
 export interface Course {
   id: number
   title: string

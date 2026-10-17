@@ -12,6 +12,8 @@ node_modules/
 dist/
 *.tsbuildinfo
 .vite/
+# vitest 覆盖率报告（npm run test:coverage 的产物）
+coverage/
 
 # ===== IDE =====
 .idea/
