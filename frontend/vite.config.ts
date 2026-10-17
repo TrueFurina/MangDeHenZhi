@@ -63,13 +63,19 @@ export default defineConfig({
     rollupOptions: {
       external: ['fsevents'],
       output: {
-        manualChunks: {
-          'vendor-vue': ['vue', 'vue-router', 'pinia'],
-          'vendor-element': ['element-plus', '@element-plus/icons-vue'],
-          'vendor-three': ['three'],
-          'vendor-charts': ['echarts', 'vue-echarts'],
-          'vendor-pwa': ['vite-plugin-pwa'],
-          'vendor-utils': ['axios'],
+        // Vite 8 底层换成 rolldown 后，`manualChunks` 只接受**函数**形式；
+        // 原来的对象形式（'vendor-vue': ['vue', ...]）会直接报
+        //   TypeError: manualChunks is not a function
+        // 并让 `vite build` 失败。这里改写为等价的函数形式。
+        manualChunks(id: string) {
+          const p = id.replace(/\\/g, '/')
+          if (!p.includes('/node_modules/')) return
+          if (/\/node_modules\/(vue|vue-router|pinia|@vue)\//.test(p)) return 'vendor-vue'
+          if (/\/node_modules\/(element-plus|@element-plus\/icons-vue)\//.test(p)) return 'vendor-element'
+          if (/\/node_modules\/three\//.test(p)) return 'vendor-three'
+          if (/\/node_modules\/(echarts|vue-echarts)\//.test(p)) return 'vendor-charts'
+          if (/\/node_modules\/(vite-plugin-pwa|workbox-)/.test(p)) return 'vendor-pwa'
+          if (/\/node_modules\/axios\//.test(p)) return 'vendor-utils'
         },
       },
     },
