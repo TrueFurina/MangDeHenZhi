@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please report it privately by emailing **2468001320@qq.com**.
+If you discover a security vulnerability, please report it privately by emailing **noreply@users.noreply.github.com**.
 
 Please do NOT disclose the vulnerability publicly until it has been addressed.
 
