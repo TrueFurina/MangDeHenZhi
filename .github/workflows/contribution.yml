@@ -26,7 +26,7 @@ jobs:
       - name: Commit and push
         run: |
           git config user.name "糖露星霜•暖霞拾光"
-          git config user.email "2468001320@qq.com"
+          git config user.email "noreply@users.noreply.github.com"
           git add .github/activity.txt
           git diff --cached --quiet || git commit -m "chore: daily contribution heartbeat"
           git push
