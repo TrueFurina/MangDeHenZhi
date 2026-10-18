@@ -16,7 +16,7 @@ Examples of behavior that contributes to a positive environment:
 
 ## Enforcement
 
-Project maintainers are responsible for clarifying and enforcing our standards. Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at 2468001320@qq.com.
+Project maintainers are responsible for clarifying and enforcing our standards. Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at noreply@users.noreply.github.com.
 
 ## Attribution
 
