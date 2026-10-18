@@ -1,7 +1,7 @@
 /*
- * @Author: 张敏杰 2468001320@qq.com
+ * @Author: MangDeHenZhi Project
  * @Date: 2025-08-21 23:30:53
- * @LastEditors: 张敏杰 2468001320@qq.com
+ * @LastEditors: MangDeHenZhi Project
  * @LastEditTime: 2025-08-21 23:43:43
  * @FilePath: \Code\Mangdehenzhi\后台管理系统\职业技能测评.java
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
