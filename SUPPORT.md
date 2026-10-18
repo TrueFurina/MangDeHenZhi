@@ -17,5 +17,5 @@ If you need help, please:
 
 ## Contact
 
-- Email: 2468001320@qq.com
+- Email: noreply@users.noreply.github.com
 - GitHub Issues: https://github.com/TrueFurina/MangDeHenZhi/issues
