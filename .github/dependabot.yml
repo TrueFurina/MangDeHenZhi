@@ -53,6 +53,24 @@ updates:
     commit-message:
       prefix: "deps"
       prefix-development: "deps(dev)"
+    # ---------------------------------------------------------------------------
+    # ignore：typescript 7 目前升不了，加版本天花板（2026-10-19 实测复查）
+    #
+    # 根因：vue-tsc（含最新 3.3.13）内部 require('typescript/lib/tsc')，
+    # 而 TypeScript 7 的 package.json exports 已不再暴露 './lib/tsc' 子路径：
+    #
+    #   Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './lib/tsc'
+    #   is not defined by "exports" in .../node_modules/typescript/package.json
+    #       at resolveTscPath (vue-tsc/index.js:73:43)
+    #
+    # 注意 vue-tsc 的 peer 写的是 typescript >=5.0.0（不排除 7），所以
+    # 这不是 peer 冲突、npm 装得上，但一跑 `vue-tsc` 就立刻抛错，
+    # CI 的 type-check / build 必红。必须等 vue-tsc 发布适配 TS7 的版本。
+    # ---------------------------------------------------------------------------
+    ignore:
+      - dependency-name: "typescript"
+        versions:
+          - ">=7.0.0"
     groups:
       npm-patch-minor:
         applies-to: version-updates
