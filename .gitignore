@@ -42,3 +42,12 @@ mysql_data/
 backend/.mvn/wrapper/maven-wrapper.jar
 backend/sql/init.sql
 **/__pycache__/
+
+# ---- Agent 工作记忆（不入库）----
+# .workbuddy/memory/ 是 AI 会话的长期记忆与每日工作日志，可能包含本机绝对路径、
+# 其他项目的内部名称、以及未经脱敏的第三方信息。它属于本地工作状态，不属于项目产物。
+# 注：本规则只阻止新增；此前已提交的历史文件需要单独决定是否摘出索引。
+.workbuddy/memory/
+.workbuddy/logs/
+.workbuddy/sessions/
+.workbuddy/cache/
