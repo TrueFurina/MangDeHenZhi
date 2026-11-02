@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "axios": "^1.20.0",
+    "axios": "^1.21.0",
     "echarts": "^6.1.0",
     "element-plus": "^2.14.7",
     "pinia": "^4.1.0",
@@ -31,6 +31,6 @@
     "vite": "^8.3.5",
     "vite-plugin-pwa": "^2.0.0",
     "vitest": "^5.0.4",
-    "vue-tsc": "^3.3.13"
+    "vue-tsc": "^3.3.14"
   }
 }
